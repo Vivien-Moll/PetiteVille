@@ -53,6 +53,8 @@ public class DetectMousePosition : MonoBehaviour
             {
                 res.gameObject.GetComponent<Image>().color = Color.green;
             }
+
+            break;
         }
     }
 
@@ -116,6 +118,8 @@ public class DetectMousePosition : MonoBehaviour
                     GameManager.Instance.board[res.x + ofs.x, res.y + ofs.y].GetComponent<Image>().color = col;
                 }
             }
+
+            break;
         }
     }
 }
