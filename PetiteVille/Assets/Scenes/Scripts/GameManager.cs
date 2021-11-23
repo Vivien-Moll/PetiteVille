@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetMouseButtonDown(2))
         {
-            currentTetris = (Tetris)(((int)currentTetris + 1) % (int)Tetris.S_Inverted);
+            currentTetris = (Tetris)(((int)currentTetris + 1) % ((int)Tetris.S_Inverted+1));
             ResetPattern(currentTetris);
         }
     }
