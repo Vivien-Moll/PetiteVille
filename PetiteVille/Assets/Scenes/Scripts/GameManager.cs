@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     
     public TileObject[,] board { get; private set; } = new TileObject[11, 11];
     public bool[,] pattern { get; private set; }  = new bool[5, 5]; //On s'en sert pour les patterns tetris
+    public Tetris currentTetris { get; private set; } = Tetris.Square;
 
     private void Awake()
     {
@@ -25,7 +26,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        ResetPattern(Tetris.T);
+        ResetPattern(currentTetris);
     }
 
     private void Update()
@@ -33,6 +34,12 @@ public class GameManager : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
         {
             pattern = RotatePattern(pattern);
+        }
+
+        if (Input.GetMouseButtonDown(2))
+        {
+            currentTetris = (Tetris)(((int)currentTetris + 1) % (int)Tetris.S_Inverted);
+            ResetPattern(currentTetris);
         }
     }
 
@@ -83,6 +90,48 @@ public class GameManager : MonoBehaviour
                 pattern[1, 2] = true;
                 pattern[3, 2] = true;
                 pattern[2, 3] = true;
+                break;
+
+            case Tetris.L:
+                pattern[2, 2] = true;
+                pattern[2, 1] = true;
+                pattern[2, 3] = true;
+                pattern[3, 3] = true;
+                break;
+
+            case Tetris.L_Inverted:
+                pattern[2, 2] = true;
+                pattern[2, 1] = true;
+                pattern[2, 3] = true;
+                pattern[1, 3] = true;
+                break;
+
+            case Tetris.S:
+                pattern[2, 2] = true;
+                pattern[2, 3] = true;
+                pattern[1, 3] = true;
+                pattern[3, 2] = true;
+                break;
+
+            case Tetris.S_Inverted:
+                pattern[2, 2] = true;
+                pattern[2, 3] = true;
+                pattern[3, 3] = true;
+                pattern[1, 2] = true;
+                break;
+
+            case Tetris.Line:
+                pattern[2, 2] = true;
+                pattern[2, 3] = true;
+                pattern[2, 1] = true;
+                pattern[2, 0] = true;
+                break;
+
+            case Tetris.Square:
+                pattern[2, 2] = true;
+                pattern[2, 3] = true;
+                pattern[3, 2] = true;
+                pattern[3, 3] = true;
                 break;
         }
     }
