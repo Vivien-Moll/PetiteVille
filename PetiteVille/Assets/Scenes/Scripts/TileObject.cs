@@ -5,12 +5,18 @@ using UnityEngine;
 public class TileObject : MonoBehaviour
 {
     [SerializeField]
-    private int x;
-    [SerializeField]
-    private int y;
+    private int _x;
+    public int x { get { return _x; } private set { _x = value; } }
 
-    private void Awake()
+    [SerializeField]
+    private int _y;
+    public int y { get { return _y; } private set { _y = value; } }
+
+    //[HideInInspector]
+    public Tile tile = Tile.Empty;
+
+    private void Start()
     {
-        GameManager.Instance.AddTile(x, y, this);
+        GameManager.Instance.AddTile(_x, _y, this);
     }
 }
