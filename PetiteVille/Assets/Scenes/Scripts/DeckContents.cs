@@ -5,8 +5,14 @@ using UnityEngine.UI;
 
 public class DeckContents : MonoBehaviour
 {
-    private int size = 14;
+    private int nbOfTilesPlayed = 0;
+    private int size = 15;
+
     public GameObject deckContents;
+    public GameObject handContents;
+
+    private Queue<Tile> tileType = new Queue<Tile>();
+    private Queue<Tetris> forms = new Queue<Tetris>();
 
     private Text houseAmount;
     private Text parkAmount;
@@ -17,6 +23,10 @@ public class DeckContents : MonoBehaviour
     private int nbRiver = 0;
     private int nbPark = 0;
 
+    private Color tileSprite;
+    private int[] cellsToShow = new int[4] { 11, 12, 13, 21 };
+    private bool isHandEmpty = true;
+
 
     // Start is called before the first frame update
     void Start()
@@ -26,37 +36,124 @@ public class DeckContents : MonoBehaviour
         riverAmount = deckContents.transform.Find("River").transform.Find("amount").GetComponent<Text>();
         roadAmount = deckContents.transform.Find("Road").transform.Find("amount").GetComponent<Text>();
 
-        //Tile[] contents = new Tile[size];
-        //Tetris[] forms = new Tetris[size];
-        Queue<Tile> contents = new Queue<Tile>();
-        Queue<Tetris> forms = new Queue<Tetris>();
+        
 
         List<Tile> acceptedTiles = new List<Tile> { Tile.House, Tile.Park, Tile.River, Tile.Road };
         List<Tetris> acceptedTetris = new List<Tetris> { Tetris.L, Tetris.Line, Tetris.L_Inverted, Tetris.S, Tetris.Square, Tetris.S_Inverted, Tetris.T };
 
         for (int i = 0; i < size; i++)
         {
-            contents.Enqueue(acceptedTiles[Random.Range(0, acceptedTiles.Count)]);
+            tileType.Enqueue(acceptedTiles[Random.Range(0, acceptedTiles.Count)]);
             forms.Enqueue(acceptedTetris[Random.Range(0, acceptedTetris.Count)]);
         }
 
-        setDeckContent(contents);
-        showDeckValues();
-
-        
+        setDeckContent(tileType);       
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (isHandEmpty && nbOfTilesPlayed <= size)
+        {
+            isHandEmpty = false;
+            var t = tileType.Dequeue();
+            var f = forms.Dequeue();
+
+            findTileSprite(t);
+
+            showHandCard(f);
+            showDeckValues();
+
+
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            resetHand();
+            isHandEmpty = true;
+            nbOfTilesPlayed++;
+        }
+    }
+
+    private void findTileSprite(Tile t)
+    {
+        switch (t)
+        {
+            case Tile.Empty:
+                break;
+            case Tile.House:
+                tileSprite = Color.red;
+                nbHouse--;
+                break;
+            case Tile.Road:
+                tileSprite = Color.gray;
+                nbRoad--;
+                break;
+            case Tile.River:
+                tileSprite = Color.blue;
+                nbRiver--;
+                break;
+            case Tile.Park:
+                tileSprite = Color.green;
+                nbPark--;
+                break;
+            case Tile.Factory:
+                break;
+            default:
+                Debug.Log("Tile Color NOT FOUND");
+                break;
+        }
+    }
+
+    private void showHandCard(Tetris f)
+    {
+        switch (f)
+        {
+            case Tetris.Square:
+                cellsToShow = new int[4]{ 11, 21, 12, 22};
+                break;
+            case Tetris.Line:
+                cellsToShow = new int[4] { 21, 22, 23, 24};
+                break;
+            case Tetris.T:
+                cellsToShow = new int[4] { 11, 22, 21, 31 };
+                break;
+            case Tetris.L:
+                cellsToShow = new int[4] { 21, 22, 23, 31};
+                break;
+            case Tetris.L_Inverted:
+                cellsToShow = new int[4] { 21, 22, 23, 11 };
+                break;
+            case Tetris.S:
+                cellsToShow = new int[4] { 11, 21, 22, 32 };
+                break;
+            case Tetris.S_Inverted:
+                cellsToShow = new int[4] { 12, 22, 31, 21 };
+                break;
+            default:
+                Debug.Log("Tetris form NOT FOUND");
+                break;
+        }
+        handContents.transform.Find(cellsToShow[0].ToString()).GetComponent<Image>().color = tileSprite;
+        handContents.transform.Find(cellsToShow[1].ToString()).GetComponent<Image>().color = tileSprite;
+        handContents.transform.Find(cellsToShow[2].ToString()).GetComponent<Image>().color = tileSprite;
+        handContents.transform.Find(cellsToShow[3].ToString()).GetComponent<Image>().color = tileSprite;
+    }
+
+    private void resetHand()
+    {
+        handContents.transform.Find(cellsToShow[0].ToString()).GetComponent<Image>().color = Color.black;
+        handContents.transform.Find(cellsToShow[1].ToString()).GetComponent<Image>().color = Color.black;
+        handContents.transform.Find(cellsToShow[2].ToString()).GetComponent<Image>().color = Color.black;
+        handContents.transform.Find(cellsToShow[3].ToString()).GetComponent<Image>().color = Color.black;
     }
 
     private void setDeckContent(Queue<Tile> tile_queue)
     {
-
+        
         foreach (Tile t in tile_queue)
         {
+            
             switch (t)
             {
                 case Tile.House:
@@ -80,8 +177,8 @@ public class DeckContents : MonoBehaviour
     private void showDeckValues()
     {
         houseAmount.text = "×" + nbHouse;
-        parkAmount.text = "×" + nbRoad;
+        parkAmount.text = "×" + nbPark;
         riverAmount.text = "×" + nbRiver;
-        roadAmount.text = "×" + nbPark;
+        roadAmount.text = "×" + nbRoad;
     }
 }
