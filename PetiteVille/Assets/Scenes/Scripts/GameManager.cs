@@ -5,6 +5,10 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private AudioSource houseSound;
+
+    [SerializeField]
+    private DetectMousePosition dmp;
     public static GameManager Instance { get; private set; }
     
     public TileObject[,] board { get; private set; } = new TileObject[11, 11];
@@ -31,16 +35,21 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        ResetPattern(currentTetris);
+        DrawCard();
     }
 
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if(/*possible de placer la tuile*/true)
+            if(/*DetectMousePosition.Instance*/dmp.placementValidate)
             {
-                // Placement de tiles
+                houseSound.Play();
+
+                foreach(Vector2Int pos in dmp.selectedCells)
+                {
+                    board[pos.x, pos.y].tile = currentTile;
+                }
 
                 if (DeckContents.Instance.DeckCount() == 0)
                 {
@@ -48,8 +57,7 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-                    currentTetris = DeckContents.Instance.GetTetris();
-                    currentTile = DeckContents.Instance.GetTile();
+                    DrawCard();
                 }
             }
         }
@@ -61,9 +69,21 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetMouseButtonDown(2))
         {
-            currentTetris = (Tetris)(((int)currentTetris + 1) % ((int)Tetris.S_Inverted+1));
-            ResetPattern(currentTetris);
+            dmp.checkmodeTetris = !dmp.checkmodeTetris;
+
+            //currentTetris = (Tetris)(((int)currentTetris + 1) % ((int)Tetris.S_Inverted+1));
+            //ResetPattern(currentTetris);
         }
+    }
+
+    private void DrawCard()
+    {
+        currentTetris = DeckContents.Instance.GetTetris();
+        currentTile = DeckContents.Instance.GetTile();
+
+        Debug.Log(currentTile);
+
+        ResetPattern(currentTetris);
     }
 
     public void AddTile(int x, int y, TileObject tile)
@@ -86,10 +106,46 @@ public class GameManager : MonoBehaviour
             {
                 if (tile.tile == Tile.Road) //Tile pour les routes
                 {
-                    var up = (board[tile.x,tile.y-1].tile == Tile.Road);
-                    var down = (board[tile.x,tile.y+1].tile == Tile.Road);
-                    var left = (board[tile.x-1,tile.y].tile == Tile.Road);
-                    var right = (board[tile.x+1,tile.y].tile == Tile.Road);
+                    bool up;
+                    bool down;
+                    bool left;
+                    bool right;
+
+                    if (tile.y == 0)
+                    {
+                        up = false;
+                    }
+                    else
+                    {
+                        up = ((board[tile.x, tile.y - 1].tile == Tile.Road) || (board[tile.x, tile.y - 1].tile == Tile.House) || (board[tile.x, tile.y - 1].tile == Tile.Factory));
+                    }
+
+                    if (tile.y == 10)
+                    {
+                        down = false;
+                    }
+                    else
+                    {
+                        down = ((board[tile.x, tile.y + 1].tile == Tile.Road) || (board[tile.x, tile.y + 1].tile == Tile.House) || (board[tile.x, tile.y + 1].tile == Tile.Factory));
+                    }
+
+                    if (tile.x == 0)
+                    {
+                        left = false;
+                    }
+                    else
+                    {
+                        left = ((board[tile.x - 1, tile.y].tile == Tile.Road) || (board[tile.x - 1, tile.y].tile == Tile.House) || (board[tile.x - 1, tile.y].tile == Tile.Factory));
+                    }
+
+                    if (tile.x == 10)
+                    {
+                        right = false;
+                    }
+                    else
+                    {
+                        right = ((board[tile.x + 1, tile.y].tile == Tile.Road) || (board[tile.x + 1, tile.y].tile == Tile.House) || (board[tile.x + 1, tile.y].tile == Tile.Factory));
+                    }
 
                     if (up && down && left && right)
                     {
@@ -142,10 +198,46 @@ public class GameManager : MonoBehaviour
                 }
                 else if (tile.tile == Tile.River) //Tile pour les rivières
                 {
-                    var up = (board[tile.x, tile.y - 1].tile == Tile.River);
-                    var down = (board[tile.x, tile.y + 1].tile == Tile.River);
-                    var left = (board[tile.x - 1, tile.y].tile == Tile.River);
-                    var right = (board[tile.x + 1, tile.y].tile == Tile.River);
+                    bool up;
+                    bool down;
+                    bool left;
+                    bool right;
+
+                    if (tile.y == 0)
+                    {
+                        up = false;
+                    }
+                    else
+                    {
+                        up = (board[tile.x, tile.y - 1].tile == Tile.River);
+                    }
+
+                    if (tile.y == 10)
+                    {
+                        down = false;
+                    }
+                    else
+                    {
+                        down = (board[tile.x, tile.y + 1].tile == Tile.River);
+                    }
+
+                    if (tile.x == 0)
+                    {
+                        left = false;
+                    }
+                    else
+                    {
+                        left = (board[tile.x - 1, tile.y].tile == Tile.River);
+                    }
+
+                    if (tile.x == 10)
+                    {
+                        right = false;
+                    }
+                    else
+                    {
+                        right = (board[tile.x + 1, tile.y].tile == Tile.River);
+                    }
 
                     if (up && down && left && right)
                     {
