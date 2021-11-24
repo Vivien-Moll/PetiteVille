@@ -23,3 +23,14 @@ public enum Tile
     Factory,
     Mountain
 }
+
+public enum Missions
+{
+    IndustrialArea,
+    neighborhood,
+    Island,
+    HabitatedIsland,
+    Aqueduct,
+    Highways,
+    DailyShuffle
+}
