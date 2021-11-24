@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
         {
             // Placement de tiles
 
-            if(DeckContents.Instance.TopDeck() == null)
+            if(true)//DeckContents.Instance.TopDeck() == null)
             {
                 //Finir la game
             }

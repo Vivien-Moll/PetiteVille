@@ -59,13 +59,8 @@ public class DeckContents : MonoBehaviour
         setDeckContent(tileType);       
     }
 
-    public dynamic TopDeck()
+    public Tile TopDeck()
     {
-        if (tileType.Count == 0)
-        {
-            return null;
-        }
-
         return tileType.Peek();
     }
 
