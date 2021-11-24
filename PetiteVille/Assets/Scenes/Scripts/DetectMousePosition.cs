@@ -10,8 +10,13 @@ public class DetectMousePosition : MonoBehaviour
     PointerEventData m_PointerEventData;
     EventSystem m_EventSystem;
 
-    [SerializeField]
-    private DeckContents deck;
+    public bool checkmodeTetris = false;
+
+    [SerializeField] Color colGood = Color.green;
+    [SerializeField] Color colBad = Color.red;
+
+    public bool placementValidate { get; private set; } = false;
+    public List<Vector2Int> selectedCells { get; private set; } = new List<Vector2Int>();
 
     void Start()
     {
@@ -25,33 +30,16 @@ public class DetectMousePosition : MonoBehaviour
     {
         GameManager.Instance.UpdateTiles();
         GameManager.Instance.ClearColors();
-        CheckTileTetris(GameManager.Instance.pattern);
+        CheckTile();
     }
 
-    private void CheckTile(bool[,] pattern)
+    private void CheckTile()
     {
-        //Set up the new Pointer Event
-        m_PointerEventData = new PointerEventData(m_EventSystem);
+        //Reset the placement validation
+        placementValidate = false;
 
-        //Set the Pointer Event Position to that of the mouse position
-        m_PointerEventData.position = Input.mousePosition;
-
-        //Create a list of Raycast Results
-        List<RaycastResult> results = new List<RaycastResult>();
-
-        //Raycast using the Graphics Raycaster and mouse click position
-        m_Raycaster.Raycast(m_PointerEventData, results);
-
-        foreach (RaycastResult result in results)
-        {
-            var res = result.gameObject.GetComponent<TileObject>();
-
-
-        }
-    }
-
-    private void CheckIndividualTile()
-    {
+        //Reset the selected cells
+        selectedCells.Clear();
 
         //Set up the new Pointer Event
         m_PointerEventData = new PointerEventData(m_EventSystem);
@@ -69,83 +57,91 @@ public class DetectMousePosition : MonoBehaviour
         {
             var res = result.gameObject.GetComponent<TileObject>();
 
-            //Debug.Log(res.x.ToString() + res.y.ToString());
-
-            if (res.tile != Tile.Empty)
+            if (res != null)
             {
-                res.gameObject.GetComponent<Image>().color = Color.red;
-            }
-            else
-            {
-                res.gameObject.GetComponent<Image>().color = Color.green;
-            }
+                //INSERER CODE QUI AFFICHE LES EXPLICATIONS ICI
 
-            break;
-        }
-    }
-
-    private void CheckTileTetris(bool[,] pattern)
-    {
-        //Set up the new Pointer Event
-        m_PointerEventData = new PointerEventData(m_EventSystem);
-
-        //Set the Pointer Event Position to that of the mouse position
-        m_PointerEventData.position = Input.mousePosition;
-
-        //Create a list of Raycast Results
-        List<RaycastResult> results = new List<RaycastResult>();
-
-        //Raycast using the Graphics Raycaster and mouse click position
-        m_Raycaster.Raycast(m_PointerEventData, results);
-
-        foreach (RaycastResult result in results)
-        {
-            var res = result.gameObject.GetComponent<TileObject>();
-            var empty = true;
-            Color col;
-            List<Vector2Int> offsets = new List<Vector2Int>();
-
-            for (var _x = 0; _x < 5; _x++)
-            {
-                for (var _y = 0; _y < 5; _y++)
+                if (res.isPartOfBoard())
                 {
-                    if (GameManager.Instance.pattern[_x, _y] == true)
+                    if (checkmodeTetris)
                     {
-                        offsets.Add(new Vector2Int(_x - 2, _y - 2));
+                        CheckTileTetris(res, GameManager.Instance.pattern);
+                    }
+                    else
+                    {
+                        CheckIndividualTile(res);
+                    }
+                }
 
-                        if((res.x-2+_x >= 0) && (res.x - 2 + _x <= 10) && (res.y - 2 + _y >= 0) && (res.y - 2 + _y <= 10))
-                        {
-                            if (GameManager.Instance.board[res.x - 2 + _x, res.y - 2 + _y].tile != Tile.Empty)
-                            {
-                                empty = false;
-                            }
-                        }
-                        else
+                break;
+            }
+        }
+    }
+
+    private void CheckIndividualTile(TileObject res)
+    {
+        if (res.tile != Tile.Empty)
+        {
+            res.gameObject.GetComponent<Image>().color = colBad;
+        }
+        else
+        {
+            placementValidate = true;
+            selectedCells.Add(new Vector2Int(res.x, res.y));
+            res.gameObject.GetComponent<Image>().color = colGood;
+        }
+    }
+
+    private void CheckTileTetris(TileObject res, bool[,] pattern)
+    {
+        var empty = true;
+        Color col;
+        List<Vector2Int> offsets = new List<Vector2Int>();
+
+        for (var _x = 0; _x < 5; _x++)
+        {
+            for (var _y = 0; _y < 5; _y++)
+            {
+                if (GameManager.Instance.pattern[_x, _y] == true)
+                {
+                    offsets.Add(new Vector2Int(_x - 2, _y - 2));
+
+                    if((res.x-2+_x >= 0) && (res.x - 2 + _x <= 10) && (res.y - 2 + _y >= 0) && (res.y - 2 + _y <= 10))
+                    {
+                        if (GameManager.Instance.board[res.x - 2 + _x, res.y - 2 + _y].tile != Tile.Empty)
                         {
                             empty = false;
                         }
                     }
+                    else
+                    {
+                        empty = false;
+                    }
                 }
             }
+        }
 
-            if (!empty)
-            {
-                col = Color.red;
-            }
-            else
-            {
-                col = Color.green;
-            }
+        if (!empty)
+        {
+            col = colBad;
+        }
+        else
+        {
+            placementValidate = true;
+            col = colGood;
+        }
 
-            foreach(Vector2Int ofs in offsets)
+        foreach(Vector2Int ofs in offsets)
+        {
+            if ((res.x + ofs.x >= 0) && (res.x + ofs.x <= 10) && (res.y + ofs.y >= 0) && (res.y + ofs.y <= 10))
             {
-                if ((res.x + ofs.x >= 0) && (res.x + ofs.x <= 10) && (res.y + ofs.y >= 0) && (res.y + ofs.y <= 10))
+                if (placementValidate)
                 {
-                    GameManager.Instance.board[res.x + ofs.x, res.y + ofs.y].GetComponent<Image>().color = col;
+                    selectedCells.Add(new Vector2Int(res.x + ofs.x, res.y + ofs.y));
                 }
-            }
 
-            break;
+                GameManager.Instance.board[res.x + ofs.x, res.y + ofs.y].GetComponent<Image>().color = col;
+            }
         }
     }
 }
