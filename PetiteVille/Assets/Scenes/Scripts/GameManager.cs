@@ -38,16 +38,19 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            // Placement de tiles
+            if(/*possible de placer la tuile*/true)
+            {
+                // Placement de tiles
 
-            if(true)//DeckContents.Instance.TopDeck() == null)
-            {
-                //Finir la game
-            }
-            else
-            {
-                currentTetris = DeckContents.Instance.GetTetris();
-                currentTile = DeckContents.Instance.GetTile();
+                if (DeckContents.Instance.DeckCount() == 0)
+                {
+                    //Finir la game
+                }
+                else
+                {
+                    currentTetris = DeckContents.Instance.GetTetris();
+                    currentTile = DeckContents.Instance.GetTile();
+                }
             }
         }
 
