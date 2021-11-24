@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public TileObject[,] board { get; private set; } = new TileObject[11, 11];
     public bool[,] pattern { get; private set; }  = new bool[5, 5]; //On s'en sert pour les patterns tetris
     public Tetris currentTetris { get; private set; } = Tetris.Square;
+    public Tile currentTile { get; private set; } = Tile.Empty;
 
     [SerializeField] private Sprite[] tileSprites;
     [SerializeField] private Sprite[] roadSprites;
@@ -35,6 +36,21 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetMouseButtonDown(0))
+        {
+            // Placement de tiles
+
+            if(DeckContents.Instance.TopDeck() == null)
+            {
+                //Finir la game
+            }
+            else
+            {
+                currentTetris = DeckContents.Instance.GetTetris();
+                currentTile = DeckContents.Instance.GetTile();
+            }
+        }
+
         if (Input.GetMouseButtonDown(1))
         {
             pattern = RotatePattern(pattern);

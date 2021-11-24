@@ -10,6 +10,9 @@ public class DetectMousePosition : MonoBehaviour
     PointerEventData m_PointerEventData;
     EventSystem m_EventSystem;
 
+    [SerializeField]
+    private DeckContents deck;
+
     void Start()
     {
         //Fetch the Raycaster from the GameObject (the Canvas)
