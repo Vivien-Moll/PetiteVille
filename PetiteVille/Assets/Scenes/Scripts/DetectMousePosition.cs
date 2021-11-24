@@ -61,10 +61,10 @@ public class DetectMousePosition : MonoBehaviour
 
             if (res != null)
             {
-                
+                checkTileType(res);
                 if (res.isPartOfBoard())
                 {
-                    checkTileType(res);
+                    
                     if (checkmodeTetris)
                     {
                         CheckTileTetris(res, GameManager.Instance.pattern);

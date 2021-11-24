@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 73720372}
   - component: {fileID: 73720374}
   - component: {fileID: 73720373}
+  - component: {fileID: 73720375}
   m_Layer: 0
   m_Name: River
   m_TagString: Untagged
@@ -199,6 +200,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 73720371}
   m_CullTransparentMesh: 1
+--- !u!114 &73720375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 73720371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7115e9848171dd444ab9d449df1a222a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _x: 0
+  _y: 0
+  partOfTheBoard: 0
+  partOfTetrisPreview: 0
+  partOfUniquePreview: 0
+  tile: 3
 --- !u!1 &94776912
 GameObject:
   m_ObjectHideFlags: 0
@@ -304,6 +323,7 @@ GameObject:
   - component: {fileID: 111492777}
   - component: {fileID: 111492779}
   - component: {fileID: 111492778}
+  - component: {fileID: 111492780}
   m_Layer: 0
   m_Name: House
   m_TagString: Untagged
@@ -369,6 +389,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 111492776}
   m_CullTransparentMesh: 1
+--- !u!114 &111492780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111492776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7115e9848171dd444ab9d449df1a222a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _x: 0
+  _y: 0
+  partOfTheBoard: 0
+  partOfTetrisPreview: 0
+  partOfUniquePreview: 0
+  tile: 1
 --- !u!1 &138349420
 GameObject:
   m_ObjectHideFlags: 0
@@ -1634,6 +1672,7 @@ GameObject:
   - component: {fileID: 1148898269}
   - component: {fileID: 1148898271}
   - component: {fileID: 1148898270}
+  - component: {fileID: 1148898272}
   m_Layer: 0
   m_Name: Park
   m_TagString: Untagged
@@ -1699,6 +1738,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1148898268}
   m_CullTransparentMesh: 1
+--- !u!114 &1148898272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1148898268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7115e9848171dd444ab9d449df1a222a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _x: 0
+  _y: 0
+  partOfTheBoard: 0
+  partOfTetrisPreview: 0
+  partOfUniquePreview: 0
+  tile: 4
 --- !u!1 &1222913628
 GameObject:
   m_ObjectHideFlags: 0
@@ -2116,6 +2173,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6871245042827724863, guid: 045faf205b95d4d4ea3f7c69c1d9ff4a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6871245042844727640, guid: 045faf205b95d4d4ea3f7c69c1d9ff4a, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -2331,6 +2392,10 @@ PrefabInstance:
     - target: {fileID: 6871245042975107689, guid: 045faf205b95d4d4ea3f7c69c1d9ff4a, type: 3}
       propertyPath: m_LocalScale.z
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871245042975107689, guid: 045faf205b95d4d4ea3f7c69c1d9ff4a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6871245042989133954, guid: 045faf205b95d4d4ea3f7c69c1d9ff4a, type: 3}
       propertyPath: m_Color.b
@@ -2559,6 +2624,10 @@ PrefabInstance:
     - target: {fileID: 6871245043152377214, guid: 045faf205b95d4d4ea3f7c69c1d9ff4a, type: 3}
       propertyPath: m_LocalScale.z
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871245043152377214, guid: 045faf205b95d4d4ea3f7c69c1d9ff4a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6871245043152377215, guid: 045faf205b95d4d4ea3f7c69c1d9ff4a, type: 3}
       propertyPath: m_Color.b
@@ -3076,6 +3145,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6871245043481344393, guid: 045faf205b95d4d4ea3f7c69c1d9ff4a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6871245043483616492, guid: 045faf205b95d4d4ea3f7c69c1d9ff4a, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -3123,6 +3196,10 @@ PrefabInstance:
     - target: {fileID: 6871245043487018247, guid: 045faf205b95d4d4ea3f7c69c1d9ff4a, type: 3}
       propertyPath: m_LocalScale.z
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871245043487018247, guid: 045faf205b95d4d4ea3f7c69c1d9ff4a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6871245043495952738, guid: 045faf205b95d4d4ea3f7c69c1d9ff4a, type: 3}
       propertyPath: m_Color.b
@@ -3388,6 +3465,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6871245043676091483, guid: 045faf205b95d4d4ea3f7c69c1d9ff4a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6871245043681969368, guid: 045faf205b95d4d4ea3f7c69c1d9ff4a, type: 3}
       propertyPath: m_Color.b
       value: 0.754717
@@ -3423,6 +3504,10 @@ PrefabInstance:
     - target: {fileID: 6871245043691181344, guid: 045faf205b95d4d4ea3f7c69c1d9ff4a, type: 3}
       propertyPath: m_LocalScale.z
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871245043691181344, guid: 045faf205b95d4d4ea3f7c69c1d9ff4a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6871245043691181345, guid: 045faf205b95d4d4ea3f7c69c1d9ff4a, type: 3}
       propertyPath: m_Color.b
@@ -3496,6 +3581,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6871245043757988258, guid: 045faf205b95d4d4ea3f7c69c1d9ff4a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6871245043757988259, guid: 045faf205b95d4d4ea3f7c69c1d9ff4a, type: 3}
       propertyPath: m_Color.b
       value: 0.754717
@@ -3543,6 +3632,10 @@ PrefabInstance:
     - target: {fileID: 6871245043792018276, guid: 045faf205b95d4d4ea3f7c69c1d9ff4a, type: 3}
       propertyPath: m_LocalScale.z
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871245043792018276, guid: 045faf205b95d4d4ea3f7c69c1d9ff4a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6871245043792018277, guid: 045faf205b95d4d4ea3f7c69c1d9ff4a, type: 3}
       propertyPath: m_Color.b
@@ -4024,6 +4117,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6871245044301148444, guid: 045faf205b95d4d4ea3f7c69c1d9ff4a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6871245044301148445, guid: 045faf205b95d4d4ea3f7c69c1d9ff4a, type: 3}
       propertyPath: m_Color.b
       value: 0.754717
@@ -4491,6 +4588,10 @@ PrefabInstance:
     - target: {fileID: 6871245044628721877, guid: 045faf205b95d4d4ea3f7c69c1d9ff4a, type: 3}
       propertyPath: m_LocalScale.z
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871245044628721877, guid: 045faf205b95d4d4ea3f7c69c1d9ff4a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6871245044636242584, guid: 045faf205b95d4d4ea3f7c69c1d9ff4a, type: 3}
       propertyPath: m_LocalScale.x
@@ -5226,6 +5327,7 @@ GameObject:
   - component: {fileID: 1747830090}
   - component: {fileID: 1747830092}
   - component: {fileID: 1747830091}
+  - component: {fileID: 1747830093}
   m_Layer: 0
   m_Name: Road
   m_TagString: Untagged
@@ -5291,6 +5393,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1747830089}
   m_CullTransparentMesh: 1
+--- !u!114 &1747830093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1747830089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7115e9848171dd444ab9d449df1a222a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _x: 0
+  _y: 0
+  partOfTheBoard: 0
+  partOfTetrisPreview: 0
+  partOfUniquePreview: 0
+  tile: 2
 --- !u!1001 &1846657690
 PrefabInstance:
   m_ObjectHideFlags: 0
