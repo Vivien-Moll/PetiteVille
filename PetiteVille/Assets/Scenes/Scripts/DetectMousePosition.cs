@@ -20,6 +20,7 @@ public class DetectMousePosition : MonoBehaviour
 
     void Update()
     {
+        GameManager.Instance.UpdateTiles();
         GameManager.Instance.ClearColors();
         CheckTileTetris(GameManager.Instance.pattern);
     }

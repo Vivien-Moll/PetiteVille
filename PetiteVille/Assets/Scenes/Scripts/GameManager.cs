@@ -11,6 +11,10 @@ public class GameManager : MonoBehaviour
     public bool[,] pattern { get; private set; }  = new bool[5, 5]; //On s'en sert pour les patterns tetris
     public Tetris currentTetris { get; private set; } = Tetris.Square;
 
+    [SerializeField] private Sprite[] tileSprites;
+    [SerializeField] private Sprite[] roadSprites;
+    [SerializeField] private Sprite[] riverSprites;
+
     private void Awake()
     {
         if (Instance == null)
@@ -55,20 +59,165 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void UpdateTiles()
+    {
+        foreach (TileObject tile in board)
+        {
+            if (tile != null)
+            {
+                if (tile.tile == Tile.Road) //Tile pour les routes
+                {
+                    var up = (board[tile.x,tile.y-1].tile == Tile.Road);
+                    var down = (board[tile.x,tile.y+1].tile == Tile.Road);
+                    var left = (board[tile.x-1,tile.y].tile == Tile.Road);
+                    var right = (board[tile.x+1,tile.y].tile == Tile.Road);
+
+                    if (up && down && left && right)
+                    {
+                        tile.GetComponent<Image>().sprite = roadSprites[10];
+                    }
+                    else if (up && down && left)
+                    {
+                        tile.GetComponent<Image>().sprite = roadSprites[7];
+                    }
+                    else if (up && down && right)
+                    {
+                        tile.GetComponent<Image>().sprite = roadSprites[9];
+                    }
+                    else if (up && left && right)
+                    {
+                        tile.GetComponent<Image>().sprite = roadSprites[8];
+                    }
+                    else if (down && left && right)
+                    {
+                        tile.GetComponent<Image>().sprite = roadSprites[6];
+                    }
+                    else if (up && right)
+                    {
+                        tile.GetComponent<Image>().sprite = roadSprites[2];
+                    }
+                    else if (up && left)
+                    {
+                        tile.GetComponent<Image>().sprite = roadSprites[5];
+                    }
+                    else if (down && right)
+                    {
+                        tile.GetComponent<Image>().sprite = roadSprites[3];
+                    }
+                    else if (down && left)
+                    {
+                        tile.GetComponent<Image>().sprite = roadSprites[4];
+                    }
+                    else if (up || down)
+                    {
+                        tile.GetComponent<Image>().sprite = roadSprites[0];
+                    }
+                    else if (left || right)
+                    {
+                        tile.GetComponent<Image>().sprite = roadSprites[1];
+                    }
+                    else
+                    {
+                        tile.GetComponent<Image>().sprite = tileSprites[(int)tile.tile];
+                    }
+                }
+                else if (tile.tile == Tile.River) //Tile pour les rivières
+                {
+                    var up = (board[tile.x, tile.y - 1].tile == Tile.River);
+                    var down = (board[tile.x, tile.y + 1].tile == Tile.River);
+                    var left = (board[tile.x - 1, tile.y].tile == Tile.River);
+                    var right = (board[tile.x + 1, tile.y].tile == Tile.River);
+
+                    if (up && down && left && right)
+                    {
+                        tile.GetComponent<Image>().sprite = riverSprites[10];
+                    }
+                    else if (up && down && left)
+                    {
+                        tile.GetComponent<Image>().sprite = riverSprites[7];
+                    }
+                    else if (up && down && right)
+                    {
+                        tile.GetComponent<Image>().sprite = riverSprites[9];
+                    }
+                    else if (up && left && right)
+                    {
+                        tile.GetComponent<Image>().sprite = riverSprites[8];
+                    }
+                    else if (down && left && right)
+                    {
+                        tile.GetComponent<Image>().sprite = riverSprites[6];
+                    }
+                    else if (up && right)
+                    {
+                        tile.GetComponent<Image>().sprite = riverSprites[2];
+                    }
+                    else if (up && left)
+                    {
+                        tile.GetComponent<Image>().sprite = riverSprites[5];
+                    }
+                    else if (down && right)
+                    {
+                        tile.GetComponent<Image>().sprite = riverSprites[3];
+                    }
+                    else if (down && left)
+                    {
+                        tile.GetComponent<Image>().sprite = riverSprites[4];
+                    }
+                    else if (up || down)
+                    {
+                        tile.GetComponent<Image>().sprite = riverSprites[0];
+                    }
+                    else if (left || right)
+                    {
+                        tile.GetComponent<Image>().sprite = riverSprites[1];
+                    }
+                    else
+                    {
+                        tile.GetComponent<Image>().sprite = tileSprites[(int)tile.tile];
+                    }
+                }
+                else
+                {
+                    tile.GetComponent<Image>().sprite = tileSprites[(int)tile.tile];
+                }
+            }
+        }
+    }
+
     public void ClearColors()
     {
         foreach (TileObject tile in board)
         {
             if (tile != null)
             {
-                if (tile.tile == Tile.Empty)
+                tile.GetComponent<Image>().color = Color.white;
+                /*switch (tile.tile)
                 {
-                    tile.GetComponent<Image>().color = Color.white;
-                }
-                else
-                {
-                    tile.GetComponent<Image>().color = Color.gray;
-                }
+                    case Tile.Empty:
+                        tile.GetComponent<Image>().color = Color.white;
+                        break;
+
+                    case Tile.Factory:
+                        tile.GetComponent<Image>().color = Color.gray;
+                        break;
+
+                    case Tile.Road:
+                        tile.GetComponent<Image>().color = Color.black;
+                        break;
+
+                    case Tile.River:
+                        tile.GetComponent<Image>().color = Color.blue;
+                        break;
+
+                    case Tile.House:
+                        tile.GetComponent<Image>().color = Color.red;
+                        break;
+
+                    case Tile.Park:
+                        tile.GetComponent<Image>().color = Color.green;
+                        break;
+                }*/
             }
         }
     }
