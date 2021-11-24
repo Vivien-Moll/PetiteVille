@@ -115,7 +115,7 @@ public class DeckContents : MonoBehaviour
 
     private void Update()
     {
-        if (isHandEmpty && nbOfTilesPlayed <= size)
+        /*if (isHandEmpty && nbOfTilesPlayed <= size)
         {
             isHandEmpty = false;
             var t = tileType.Dequeue();
@@ -132,7 +132,7 @@ public class DeckContents : MonoBehaviour
             resetHand();
             isHandEmpty = true;
             nbOfTilesPlayed++;
-        }
+        }*/
     }
 
     private void findTileSprite(Tile t)
