@@ -6,6 +6,9 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private AudioSource houseSound;
+    [SerializeField] private AudioSource roadSound;
+    [SerializeField] private AudioSource riverSound;
+    [SerializeField] private AudioSource parkSound;
     
     public static GameManager Instance { get; private set; }
     
@@ -15,6 +18,7 @@ public class GameManager : MonoBehaviour
     public Tile currentTile { get; private set; } = Tile.Empty;
 
     [SerializeField] private Sprite[] tileSprites;
+    [SerializeField] private Sprite[] emptySprites;
     [SerializeField] private Sprite[] roadSprites;
     [SerializeField] private Sprite[] riverSprites;
 
@@ -55,7 +59,24 @@ public class GameManager : MonoBehaviour
         {
             if(dmp.placementValidate)
             {
-                houseSound.Play();
+                switch(currentTile)
+                {
+                    case Tile.House:
+                        houseSound.Play();
+                        break;
+
+                    case Tile.Park:
+                        parkSound.Play();
+                        break;
+
+                    case Tile.River:
+                        riverSound.Play();
+                        break;
+
+                    case Tile.Road:
+                        roadSound.Play();
+                        break;
+                }
 
                 foreach(Vector2Int pos in dmp.selectedCells)
                 {
@@ -313,6 +334,21 @@ public class GameManager : MonoBehaviour
                     else
                     {
                         tile.GetComponent<Image>().sprite = tileSprites[(int)tile.tile];
+                    }
+                }
+                else if (tile.tile == Tile.Empty)
+                {
+                    if (tile.randomFlower < 0.6f)
+                    {
+                        tile.GetComponent<Image>().sprite = emptySprites[0];
+                    }
+                    else if (tile.randomFlower < 0.8f)
+                    {
+                        tile.GetComponent<Image>().sprite = emptySprites[1];
+                    }
+                    else
+                    {
+                        tile.GetComponent<Image>().sprite = emptySprites[2];
                     }
                 }
                 else
