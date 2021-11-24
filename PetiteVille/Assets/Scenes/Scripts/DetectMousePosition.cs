@@ -16,6 +16,8 @@ public class DetectMousePosition : MonoBehaviour
 
     [SerializeField] Color colGood = Color.green;
     [SerializeField] Color colBad = Color.red;
+    [SerializeField] Text description;
+    [SerializeField] Image descriptionSprite;
 
     public bool placementValidate { get; private set; } = false;
     public List<Vector2Int> selectedCells { get; private set; } = new List<Vector2Int>();
@@ -74,10 +76,10 @@ public class DetectMousePosition : MonoBehaviour
 
             if (res != null)
             {
-                //INSERER CODE QUI AFFICHE LES EXPLICATIONS ICI
-
+                checkTileType(res);
                 if (res.isPartOfBoard())
                 {
+                    
                     if (checkmodeTetris)
                     {
                         CheckTileTetris(res, GameManager.Instance.pattern);
@@ -157,6 +159,37 @@ public class DetectMousePosition : MonoBehaviour
 
                 GameManager.Instance.board[res.x + ofs.x, res.y + ofs.y].GetComponent<Image>().color = col;
             }
+        }
+    }
+
+    private void checkTileType (TileObject t)
+    {
+        descriptionSprite.sprite = t.GetComponent<Image>().sprite;
+        switch (t.tile)
+        {
+            case Tile.Empty:
+                description.text = "This tile is empty... Time to fill it !";
+                break;
+            case Tile.House:
+                description.text = "Each filled adjacent tile that is NOT a house gives 1 point.";
+                break;
+            case Tile.Road:
+                description.text = "Each adjacent house and factory gives 1 point.";
+                break;
+            case Tile.River:
+                description.text = "Parks give 1 point for each adjacent river.\nIf a river crosses the map, gain 1 point for each tile in the smallest part of land.";
+                break;
+            case Tile.Park:
+                description.text = "Each adjacent river gives 1 point.";
+                break;
+            case Tile.Factory:
+                description.text = "Each filled adjacent tile removes 1 point";
+                break;
+            case Tile.Mountain:
+                description.text = "Just a mountain. They enjoy being there.";
+                break;
+            default:
+                break;
         }
     }
 }
