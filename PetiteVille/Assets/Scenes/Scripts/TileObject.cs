@@ -13,26 +13,41 @@ public class TileObject : MonoBehaviour
     public int y { get { return _y; } private set { _y = value; } }
 
     [SerializeField]
-    public bool PartOfTheBoard { get; private set; } = true;
+    private bool partOfTheBoard  = true;
     [SerializeField]
-    public bool PartOfTetrisPreview { get; private set; } = false;
+    private bool partOfTetrisPreview = false;
     [SerializeField]
-    public bool PartOfUniquePreview { get; private set; } = false;
+    private bool partOfUniquePreview = false;
 
     //[HideInInspector]
     public Tile tile = Tile.Empty;
 
+    public bool isPartOfBoard()
+    {
+        return partOfTheBoard;
+    }
+
+    public bool isPartOfTetris()
+    {
+        return partOfTetrisPreview;
+    }
+
+    public bool isPartOfUnique()
+    {
+        return partOfUniquePreview;
+    }
+
     private void Start()
     {
-        if (PartOfTheBoard)
+        if (partOfTheBoard)
         {
             GameManager.Instance.AddTile(_x, _y, this);
         }
-        else if (PartOfTetrisPreview)
+        else if (partOfTetrisPreview)
         {
             DeckContents.Instance.AddTileToTetrisPreview(_x, _y, this);
         }
-        else if (PartOfUniquePreview)
+        else if (partOfUniquePreview)
         {
             DeckContents.Instance.SetTilePreviewUnique(this);
         }
