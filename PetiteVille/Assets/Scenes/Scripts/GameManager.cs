@@ -6,9 +6,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private AudioSource houseSound;
-
-    [SerializeField]
-    private DetectMousePosition dmp;
+    
     public static GameManager Instance { get; private set; }
     
     public TileObject[,] board { get; private set; } = new TileObject[11, 11];
@@ -38,11 +36,24 @@ public class GameManager : MonoBehaviour
         DrawCard();
     }
 
+    public void LoadBoardPreset(Tile[,] preset)
+    {
+        for (int x = 0; x < 11; x++)
+        {
+            for (int y = 0; y <11; y++)
+            {
+                board[x, y].tile = preset[x, y];
+            }
+        }
+    }
+
     private void Update()
     {
+        var dmp = DetectMousePosition.Instance;
+
         if (Input.GetMouseButtonDown(0))
         {
-            if(/*DetectMousePosition.Instance*/dmp.placementValidate)
+            if(dmp.placementValidate)
             {
                 houseSound.Play();
 

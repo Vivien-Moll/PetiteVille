@@ -6,6 +6,8 @@ using UnityEngine.EventSystems;
 
 public class DetectMousePosition : MonoBehaviour
 {
+    public static DetectMousePosition Instance { get; private set; }
+
     GraphicRaycaster m_Raycaster;
     PointerEventData m_PointerEventData;
     EventSystem m_EventSystem;
@@ -17,6 +19,19 @@ public class DetectMousePosition : MonoBehaviour
 
     public bool placementValidate { get; private set; } = false;
     public List<Vector2Int> selectedCells { get; private set; } = new List<Vector2Int>();
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(this);
+            return;
+        }
+    }
 
     void Start()
     {
