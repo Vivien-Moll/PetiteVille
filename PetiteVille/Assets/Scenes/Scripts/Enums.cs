@@ -20,5 +20,6 @@ public enum Tile
     Road,
     River,
     Park,
-    Factory
+    Factory,
+    Mountain
 }

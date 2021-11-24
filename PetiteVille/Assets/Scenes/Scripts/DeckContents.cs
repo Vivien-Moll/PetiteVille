@@ -12,9 +12,6 @@ public class DeckContents : MonoBehaviour
     
     [SerializeField] private GameObject handContents;
 
-    private Queue<Tile> tileType = new Queue<Tile>();
-    private Queue<Tetris> forms = new Queue<Tetris>();
-
     [SerializeField]
     private Text houseAmount;
     [SerializeField]
@@ -23,6 +20,7 @@ public class DeckContents : MonoBehaviour
     private Text riverAmount;
     [SerializeField]
     private Text roadAmount;
+
     private int nbHouse = 0;
     private int nbRoad = 0;
     private int nbRiver = 0;
@@ -31,6 +29,15 @@ public class DeckContents : MonoBehaviour
     private Color tileSprite;
     private int[] cellsToShow = new int[4] { 11, 12, 13, 21 };
     private bool isHandEmpty = true;
+
+    private List<Tile> acceptedTiles = new List<Tile> { Tile.House, Tile.Park, Tile.River, Tile.Road };
+    private List<Tetris> acceptedTetris = new List<Tetris> { Tetris.L, Tetris.Line, Tetris.L_Inverted, Tetris.S, Tetris.Square, Tetris.S_Inverted, Tetris.T };
+
+    private Queue<Tile> tileType = new Queue<Tile>();
+    private Queue<Tetris> forms = new Queue<Tetris>();
+
+    private TileObject[,] previewTetris = new TileObject[3, 4];
+    private TileObject previewUnique;
 
     private void Awake()
     {
@@ -47,8 +54,6 @@ public class DeckContents : MonoBehaviour
     
     private void Start()
     {
-        List<Tile> acceptedTiles = new List<Tile> { Tile.House, Tile.Park, Tile.River, Tile.Road };
-        List<Tetris> acceptedTetris = new List<Tetris> { Tetris.L, Tetris.Line, Tetris.L_Inverted, Tetris.S, Tetris.Square, Tetris.S_Inverted, Tetris.T };
 
         for (int i = 0; i < size; i++)
         {
@@ -59,9 +64,43 @@ public class DeckContents : MonoBehaviour
         setDeckContent(tileType);       
     }
 
-    public Tile TopDeck()
+    public void AddTileToTetrisPreview(int x, int y, TileObject tile)
+    {
+        if (previewTetris[x, y] == null)
+        {
+            previewTetris[x, y] = tile;
+        }
+        else
+        {
+            Debug.LogError(x.ToString() + " " + y.ToString() + " - Trying to assign a tile to a filled index");
+        }
+    }
+
+    public void SetTilePreviewUnique(TileObject tile)
+    {
+        if (previewUnique == null)
+        {
+            previewUnique = tile;
+        }
+        else
+        {
+            Debug.LogError("Trying to assign a tile to a filled slot");
+        }
+    }
+
+    public int DeckCount()
+    {
+        return tileType.Count;
+    }
+
+    public Tile TopTile()
     {
         return tileType.Peek();
+    }
+
+    public Tetris TopTetris()
+    {
+        return forms.Peek();
     }
 
     public Tile GetTile()
@@ -74,7 +113,7 @@ public class DeckContents : MonoBehaviour
         return forms.Dequeue();
     }
 
-    void Update()
+    private void Update()
     {
         if (isHandEmpty && nbOfTilesPlayed <= size)
         {
