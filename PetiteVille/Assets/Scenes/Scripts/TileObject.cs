@@ -19,8 +19,15 @@ public class TileObject : MonoBehaviour
     [SerializeField]
     private bool partOfUniquePreview = false;
 
+    public float randomFlower { get; private set; } = 0f;
+
     //[HideInInspector]
     public Tile tile = Tile.Empty;
+
+    private void Awake()
+    {
+        randomFlower = Random.Range(0f, 1f);
+    }
 
     public bool isPartOfBoard()
     {
