@@ -5,18 +5,23 @@ using UnityEngine.UI;
 
 public class DeckContents : MonoBehaviour
 {
+    public static DeckContents Instance { get; private set; }
+
     private int nbOfTilesPlayed = 0;
     private int size = 15;
-
-    public GameObject deckContents;
-    public GameObject handContents;
+    
+    [SerializeField] private GameObject handContents;
 
     private Queue<Tile> tileType = new Queue<Tile>();
     private Queue<Tetris> forms = new Queue<Tetris>();
 
+    [SerializeField]
     private Text houseAmount;
+    [SerializeField]
     private Text parkAmount;
+    [SerializeField]
     private Text riverAmount;
+    [SerializeField]
     private Text roadAmount;
     private int nbHouse = 0;
     private int nbRoad = 0;
@@ -27,17 +32,21 @@ public class DeckContents : MonoBehaviour
     private int[] cellsToShow = new int[4] { 11, 12, 13, 21 };
     private bool isHandEmpty = true;
 
-
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        houseAmount = deckContents.transform.Find("House").transform.Find("amount").GetComponent<Text>();
-        parkAmount = deckContents.transform.Find("Park").transform.Find("amount").GetComponent<Text>();
-        riverAmount = deckContents.transform.Find("River").transform.Find("amount").GetComponent<Text>();
-        roadAmount = deckContents.transform.Find("Road").transform.Find("amount").GetComponent<Text>();
-
-        
-
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(this);
+            return;
+        }
+    }
+    
+    private void Start()
+    {
         List<Tile> acceptedTiles = new List<Tile> { Tile.House, Tile.Park, Tile.River, Tile.Road };
         List<Tetris> acceptedTetris = new List<Tetris> { Tetris.L, Tetris.Line, Tetris.L_Inverted, Tetris.S, Tetris.Square, Tetris.S_Inverted, Tetris.T };
 
@@ -50,7 +59,26 @@ public class DeckContents : MonoBehaviour
         setDeckContent(tileType);       
     }
 
-    // Update is called once per frame
+    public dynamic TopDeck()
+    {
+        if (tileType.Count == 0)
+        {
+            return null;
+        }
+
+        return tileType.Peek();
+    }
+
+    public Tile GetTile()
+    {
+        return tileType.Dequeue();
+    }
+
+    public Tetris GetTetris()
+    {
+        return forms.Dequeue();
+    }
+
     void Update()
     {
         if (isHandEmpty && nbOfTilesPlayed <= size)
@@ -63,8 +91,6 @@ public class DeckContents : MonoBehaviour
 
             showHandCard(f);
             showDeckValues();
-
-
         }
 
         if (Input.GetMouseButtonDown(0))
