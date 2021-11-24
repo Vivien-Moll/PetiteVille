@@ -7,6 +7,8 @@ public class DeckContents : MonoBehaviour
 {
     public static DeckContents Instance { get; private set; }
 
+    [SerializeField]
+    private bool randomizeDeck = true;
     private int nbOfTilesPlayed = 0;
     private int size = 15;
     
@@ -54,12 +56,21 @@ public class DeckContents : MonoBehaviour
     
     private void Start()
     {
-
-        for (int i = 0; i < size; i++)
+        if (randomizeDeck)
         {
-            tileType.Enqueue(acceptedTiles[Random.Range(0, acceptedTiles.Count)]);
-            forms.Enqueue(acceptedTetris[Random.Range(0, acceptedTetris.Count)]);
+            for (int i = 0; i < size; i++)
+            {
+                tileType.Enqueue(acceptedTiles[Random.Range(0, acceptedTiles.Count)]);
+                forms.Enqueue(acceptedTetris[Random.Range(0, acceptedTetris.Count)]);
+            }
         }
+        else
+        {/*
+            var persist = GameObject.FindGameObjectWithTag("persistant");
+
+            tileType = persist.GetTiles();
+            forms = persist.GetTetris();
+        */}
 
         setDeckContent(tileType);       
     }

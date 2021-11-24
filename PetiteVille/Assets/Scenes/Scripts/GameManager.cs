@@ -128,7 +128,7 @@ public class GameManager : MonoBehaviour
                     }
                     else
                     {
-                        up = ((board[tile.x, tile.y - 1].tile == Tile.Road) || (board[tile.x, tile.y - 1].tile == Tile.House) || (board[tile.x, tile.y - 1].tile == Tile.Factory));
+                        up = ((board[tile.x, tile.y - 1].tile == Tile.Road)/* || (board[tile.x, tile.y - 1].tile == Tile.House) || (board[tile.x, tile.y - 1].tile == Tile.Factory)*/);
                     }
 
                     if (tile.y == 10)
@@ -137,7 +137,7 @@ public class GameManager : MonoBehaviour
                     }
                     else
                     {
-                        down = ((board[tile.x, tile.y + 1].tile == Tile.Road) || (board[tile.x, tile.y + 1].tile == Tile.House) || (board[tile.x, tile.y + 1].tile == Tile.Factory));
+                        down = ((board[tile.x, tile.y + 1].tile == Tile.Road)/* || (board[tile.x, tile.y + 1].tile == Tile.House) || (board[tile.x, tile.y + 1].tile == Tile.Factory)*/);
                     }
 
                     if (tile.x == 0)
@@ -146,7 +146,7 @@ public class GameManager : MonoBehaviour
                     }
                     else
                     {
-                        left = ((board[tile.x - 1, tile.y].tile == Tile.Road) || (board[tile.x - 1, tile.y].tile == Tile.House) || (board[tile.x - 1, tile.y].tile == Tile.Factory));
+                        left = ((board[tile.x - 1, tile.y].tile == Tile.Road)/* || (board[tile.x - 1, tile.y].tile == Tile.House) || (board[tile.x - 1, tile.y].tile == Tile.Factory)*/);
                     }
 
                     if (tile.x == 10)
@@ -155,7 +155,7 @@ public class GameManager : MonoBehaviour
                     }
                     else
                     {
-                        right = ((board[tile.x + 1, tile.y].tile == Tile.Road) || (board[tile.x + 1, tile.y].tile == Tile.House) || (board[tile.x + 1, tile.y].tile == Tile.Factory));
+                        right = ((board[tile.x + 1, tile.y].tile == Tile.Road)/* || (board[tile.x + 1, tile.y].tile == Tile.House) || (board[tile.x + 1, tile.y].tile == Tile.Factory)*/);
                     }
 
                     if (up && down && left && right)
@@ -194,13 +194,29 @@ public class GameManager : MonoBehaviour
                     {
                         tile.GetComponent<Image>().sprite = roadSprites[4];
                     }
-                    else if (up || down)
+                    else if (up && down)
                     {
                         tile.GetComponent<Image>().sprite = roadSprites[0];
                     }
-                    else if (left || right)
+                    else if (left && right)
                     {
                         tile.GetComponent<Image>().sprite = roadSprites[1];
+                    }
+                    else if (up)
+                    {
+                        tile.GetComponent<Image>().sprite = roadSprites[13];
+                    }
+                    else if (down)
+                    {
+                        tile.GetComponent<Image>().sprite = roadSprites[11];
+                    }
+                    else if (left)
+                    {
+                        tile.GetComponent<Image>().sprite = roadSprites[12];
+                    }
+                    else if (right)
+                    {
+                        tile.GetComponent<Image>().sprite = roadSprites[14];
                     }
                     else
                     {
