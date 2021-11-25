@@ -19,6 +19,9 @@ public class TileObject : MonoBehaviour
     [SerializeField]
     private bool partOfUniquePreview = false;
 
+    public int score { get; private set; } = 0;
+    public int coeff { get; private set; } = 1;
+
     public float randomFlower { get; private set; } = 0f;
 
     //[HideInInspector]
@@ -58,5 +61,10 @@ public class TileObject : MonoBehaviour
         {
             DeckContents.Instance.SetTilePreviewUnique(this);
         }
+    }
+
+    public int getScore()
+    {
+        return score * coeff;
     }
 }

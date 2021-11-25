@@ -116,6 +116,14 @@ public class DeckContents : MonoBehaviour
 
     public Tile GetTile()
     {
+        previewUnique.tile = TopTile();
+
+        foreach (TileObject p in previewTetris)
+        {
+            p.tile = TopTile();
+        }
+        GameManager.Instance.DefaulTileSprite(previewUnique);
+
         return tileType.Dequeue();
     }
 
@@ -124,8 +132,29 @@ public class DeckContents : MonoBehaviour
         return forms.Dequeue();
     }
 
+    public void RefreshTetris(bool[,] pat)
+    {
+        for (var x = 1; x < 4; x++)
+        {
+            for(var y = 0; y < 4; y++)
+            {
+                if(pat[x,y])
+                {
+
+                    previewTetris[x - 1, y].GetComponent<Image>().enabled = true;
+                    GameManager.Instance.DefaulTileSprite(previewTetris[x - 1, y]);
+                }
+                else
+                {
+                    previewTetris[x - 1, y].GetComponent<Image>().enabled = false;
+                }
+            }
+        }
+    }
+
     private void Update()
     {
+
         /*if (isHandEmpty && nbOfTilesPlayed <= size)
         {
             isHandEmpty = false;

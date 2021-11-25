@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     public Tetris currentTetris { get; private set; } = Tetris.Square;
     public Tile currentTile { get; private set; } = Tile.Empty;
 
-    [SerializeField] private Sprite[] tileSprites;
+    public Sprite[] tileSprites;
     [SerializeField] private Sprite[] emptySprites;
     [SerializeField] private Sprite[] roadSprites;
     [SerializeField] private Sprite[] riverSprites;
@@ -35,9 +35,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void Start()
+    public void DefaulTileSprite(TileObject tile)
     {
-        DrawCard();
+        tile.GetComponent<Image>().sprite = tileSprites[(int)tile.tile];
     }
 
     public void LoadBoardPreset(Tile[,] preset)
@@ -53,6 +53,11 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        if (currentTile == Tile.Empty)
+        {
+            DrawCard();
+        }
+
         var dmp = DetectMousePosition.Instance;
 
         if (Input.GetMouseButtonDown(0))
@@ -112,10 +117,9 @@ public class GameManager : MonoBehaviour
     {
         currentTetris = DeckContents.Instance.GetTetris();
         currentTile = DeckContents.Instance.GetTile();
-
-        Debug.Log(currentTile);
-
         ResetPattern(currentTetris);
+
+        DeckContents.Instance.RefreshTetris(pattern);
     }
 
     public void AddTile(int x, int y, TileObject tile)
@@ -138,45 +142,61 @@ public class GameManager : MonoBehaviour
             {
                 if (tile.tile == Tile.Road) //Tile pour les routes
                 {
-                    bool up;
-                    bool down;
-                    bool left;
-                    bool right;
+                    bool up = false;
+                    bool down = false;
+                    bool left = false;
+                    bool right = false;
+
+                    if (tile.y != 0)
+                    {
+                        up = (board[tile.x, tile.y - 1].tile == Tile.Road);
+                    }
+
+                    if (tile.y != 10)
+                    {
+                        down = (board[tile.x, tile.y + 1].tile == Tile.Road);
+                    }
+
+                    if (tile.x != 0)
+                    {
+                        left = (board[tile.x - 1, tile.y].tile == Tile.Road);
+                    }
+
+                    if (tile.x != 10)
+                    {
+                        right = (board[tile.x + 1, tile.y].tile == Tile.Road);
+                    }
 
                     if (tile.y == 0)
                     {
-                        up = false;
-                    }
-                    else
-                    {
-                        up = ((board[tile.x, tile.y - 1].tile == Tile.Road)/* || (board[tile.x, tile.y - 1].tile == Tile.House) || (board[tile.x, tile.y - 1].tile == Tile.Factory)*/);
+                        if ((left && right) == false)
+                        {
+                            up = true;
+                        }
                     }
 
                     if (tile.y == 10)
                     {
-                        down = false;
-                    }
-                    else
-                    {
-                        down = ((board[tile.x, tile.y + 1].tile == Tile.Road)/* || (board[tile.x, tile.y + 1].tile == Tile.House) || (board[tile.x, tile.y + 1].tile == Tile.Factory)*/);
+                        if ((left && right) == false)
+                        {
+                            down = true;
+                        }
                     }
 
                     if (tile.x == 0)
                     {
-                        left = false;
-                    }
-                    else
-                    {
-                        left = ((board[tile.x - 1, tile.y].tile == Tile.Road)/* || (board[tile.x - 1, tile.y].tile == Tile.House) || (board[tile.x - 1, tile.y].tile == Tile.Factory)*/);
+                        if ((up && down) == false)
+                        {
+                            left = true;
+                        }
                     }
 
                     if (tile.x == 10)
                     {
-                        right = false;
-                    }
-                    else
-                    {
-                        right = ((board[tile.x + 1, tile.y].tile == Tile.Road)/* || (board[tile.x + 1, tile.y].tile == Tile.House) || (board[tile.x + 1, tile.y].tile == Tile.Factory)*/);
+                        if ((up && down) == false)
+                        {
+                            right = true;
+                        }
                     }
 
                     if (up && down && left && right)
@@ -246,45 +266,61 @@ public class GameManager : MonoBehaviour
                 }
                 else if (tile.tile == Tile.River) //Tile pour les rivières
                 {
-                    bool up;
-                    bool down;
-                    bool left;
-                    bool right;
+                    bool up = false;
+                    bool down = false;
+                    bool left = false;
+                    bool right = false;
 
-                    if (tile.y == 0)
-                    {
-                        up = false;
-                    }
-                    else
+                    if (tile.y != 0)
                     {
                         up = (board[tile.x, tile.y - 1].tile == Tile.River);
                     }
 
-                    if (tile.y == 10)
-                    {
-                        down = false;
-                    }
-                    else
+                    if (tile.y != 10)
                     {
                         down = (board[tile.x, tile.y + 1].tile == Tile.River);
                     }
 
-                    if (tile.x == 0)
-                    {
-                        left = false;
-                    }
-                    else
+                    if (tile.x != 0)
                     {
                         left = (board[tile.x - 1, tile.y].tile == Tile.River);
                     }
 
-                    if (tile.x == 10)
-                    {
-                        right = false;
-                    }
-                    else
+                    if (tile.x != 10)
                     {
                         right = (board[tile.x + 1, tile.y].tile == Tile.River);
+                    }
+
+                    if (tile.y == 0)
+                    {
+                        if ((left && right) == false)
+                        {
+                            up = true;
+                        }
+                    }
+
+                    if (tile.y == 10)
+                    {
+                        if ((left && right) == false)
+                        {
+                            down = true;
+                        }
+                    }
+
+                    if (tile.x == 0)
+                    {
+                        if ((up && down) == false)
+                        {
+                            left = true;
+                        }
+                    }
+
+                    if (tile.x == 10)
+                    {
+                        if ((up && down) == false)
+                        {
+                            right = true;
+                        }
                     }
 
                     if (up && down && left && right)
@@ -323,13 +359,29 @@ public class GameManager : MonoBehaviour
                     {
                         tile.GetComponent<Image>().sprite = riverSprites[4];
                     }
-                    else if (up || down)
+                    else if (up && down)
                     {
                         tile.GetComponent<Image>().sprite = riverSprites[0];
                     }
-                    else if (left || right)
+                    else if (left && right)
                     {
                         tile.GetComponent<Image>().sprite = riverSprites[1];
+                    }
+                    else if (up)
+                    {
+                        tile.GetComponent<Image>().sprite = riverSprites[11];
+                    }
+                    else if (down)
+                    {
+                        tile.GetComponent<Image>().sprite = riverSprites[12];
+                    }
+                    else if (left)
+                    {
+                        tile.GetComponent<Image>().sprite = riverSprites[13];
+                    }
+                    else if (right)
+                    {
+                        tile.GetComponent<Image>().sprite = riverSprites[14];
                     }
                     else
                     {
@@ -477,5 +529,58 @@ public class GameManager : MonoBehaviour
         }
 
         return newtabl;
+    }
+
+    private void calculateScore()
+    {
+        var brd = board;
+        int finalScore = 0;
+
+        RiverScore();
+
+        foreach (TileObject tile in board)
+        {
+            finalScore += tile.getScore();
+        }
+    }
+
+    private void RiverScore()
+    {
+        var typebrd = new Tile[11,11];
+        var listRead = new List<Vector2Int>();
+        var parsedLists = new List<List<Vector2Int>>();
+        
+        int x = 0;
+        int y = 0;
+
+        var checkVector = new Vector2Int(x, y);
+
+        foreach (TileObject tile in board)
+        {
+            typebrd[tile.x, tile.y] = tile.tile;
+        }
+
+        while(listRead.Count < 121)
+        {
+            x = 0;
+            y = 0;
+
+            /*while (listRead.Exists())
+            {
+
+            }*/
+        }
+
+        //On part d’en haut à gauche, on check le type de la tuile
+        //Si c’est de l’eau on remplace la ref board[x,y] par null
+        //Si c’est pas de l’eau on ajoute la tuile à une liste puis on check toutes les tuiles adjacentes
+        //Si elles sont null on fait rien
+        //Si c’est de l’eau on remplace par null
+        //Si c’est autre chose on ajoute la tuile à une liste puis on check toutes les tuiles adjacentes
+        //Une fois qu’on a plus rien à détecter on a mappé une zone entière et on peut savoir quelles tuiles sont dedans
+
+        //On recommence le processus à partir de la première tuile qui n’est pas null en formant une nouvelle liste
+        //Quand toutes les tuiles sont null on a autant de listes que de zones de map séparées par des rivières. On regarde la liste avec le count le plus petit et on double les points de toutes les tuiles de cette liste
+
     }
 }
