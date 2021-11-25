@@ -126,7 +126,6 @@ public class GameManager : MonoBehaviour
 
             if (Input.GetMouseButtonDown(1))
             {
-                var e = CalculateScore();
                 pattern = RotatePattern(pattern);
             }
 
