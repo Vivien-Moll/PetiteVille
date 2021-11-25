@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class UIManager : MonoBehaviour
 {
     [SerializeField] private Text missionsText;
-    [SerializeField] private GameObject accessMissionEnum;
+    [SerializeField] private GameObject explanations;
 
     // Start is called before the first frame update
     void Start()
@@ -34,12 +34,45 @@ public class UIManager : MonoBehaviour
 
     public void missionClick()
     {
-        Debug.Log("Mission");
+        if (dontDestroy.selectedMission != (Missions)(-1))
+        {
+            switch (dontDestroy.selectedMission)
+            {
+                case Missions.IndustrialArea:
+                    dontDestroy.setupIndustrialArea();
+                    break;
+                case Missions.neighborhood:
+                    dontDestroy.setupNeighborhood();
+                    break;
+                case Missions.Island:
+                    return;
+                    break;
+                case Missions.HabitatedIsland:
+                    return;
+                    break;
+                case Missions.Aqueduct:
+                    return;
+                    break;
+                case Missions.Highways:
+                    return;
+                    break;
+                case Missions.DailyShuffle:
+                    return;
+                    break;
+                case Missions.RandomShuffle:
+                    return;
+                    break;
+                default:
+                    return;
+                    break;
+            }
+            SceneManager.LoadScene(1);
+        }
     }
 
     public void howToPlayClick()
     {
-        Debug.Log("How to Play");
+        explanations.SetActive(!explanations.activeSelf);
     }
 
     public void updateMissionsText()
@@ -48,7 +81,7 @@ public class UIManager : MonoBehaviour
         switch (dontDestroy.selectedMission)
         {
             case Missions.IndustrialArea:
-                s = "Industrial Area";
+                s = "Industrial\nArea";
                 break;
             case Missions.neighborhood:
                 s = "Neighborhood";

@@ -11,13 +11,16 @@ public class DetectMousePosition : MonoBehaviour
     GraphicRaycaster m_Raycaster;
     PointerEventData m_PointerEventData;
     EventSystem m_EventSystem;
-
-    public bool checkmodeTetris = false;
+    
+    [HideInInspector]
+    public bool checkmodeTetris = true;
 
     [SerializeField] Color colGood = Color.green;
     [SerializeField] Color colBad = Color.red;
     [SerializeField] Text description;
     [SerializeField] Image descriptionSprite;
+    [SerializeField] GameObject tetrisContent;
+    [SerializeField] GameObject singleton;
 
     public bool placementValidate { get; private set; } = false;
     public List<Vector2Int> selectedCells { get; private set; } = new List<Vector2Int>();
@@ -79,7 +82,7 @@ public class DetectMousePosition : MonoBehaviour
                 checkTileType(res);
                 if (res.isPartOfBoard())
                 {
-                    
+
                     if (checkmodeTetris)
                     {
                         CheckTileTetris(res, GameManager.Instance.pattern);
@@ -87,6 +90,27 @@ public class DetectMousePosition : MonoBehaviour
                     else
                     {
                         CheckIndividualTile(res);
+                    }
+                }
+                else if (res.isPartOfUnique())
+                {
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        checkmodeTetris = false;
+                        int i = 0;
+                        foreach (Transform child in tetrisContent.transform)
+                            child.GetComponent<Image>().color = Color.grey;
+                        singleton.GetComponent<Image>().color = Color.white;
+                    }
+                }
+                else if (res.isPartOfTetris())
+                {
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        checkmodeTetris = true;
+                        foreach (Transform child in tetrisContent.transform)
+                            child.GetComponent<Image>().color = Color.white;
+                        singleton.GetComponent<Image>().color = Color.grey;
                     }
                 }
 

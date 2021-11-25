@@ -27,6 +27,7 @@ public class DeckContents : MonoBehaviour
     private int nbRoad = 0;
     private int nbRiver = 0;
     private int nbPark = 0;
+    dontDestroy persist;
 
     private Color tileSprite;
     private int[] cellsToShow = new int[4] { 11, 12, 13, 21 };
@@ -56,6 +57,8 @@ public class DeckContents : MonoBehaviour
     
     private void Start()
     {
+        //Plus de raison de randomize le deck à priori mais si on veut test il suffit de mettre true ci-dessous
+        randomizeDeck = false;
         if (randomizeDeck)
         {
             for (int i = 0; i < size; i++)
@@ -65,14 +68,17 @@ public class DeckContents : MonoBehaviour
             }
         }
         else
-        {/*
-            var persist = GameObject.FindGameObjectWithTag("persistant");
+        {
+            persist = GameObject.FindGameObjectWithTag("persistant").GetComponent<dontDestroy>();
 
-            tileType = persist.GetTiles();
-            forms = persist.GetTetris();
-        */}
 
-        setDeckContent(tileType);       
+            tileType = persist.getTiles();
+            forms = persist.getTetris();
+
+        }
+
+        setDeckContent(tileType);
+        showDeckValues();
     }
 
     public void AddTileToTetrisPreview(int x, int y, TileObject tile)
@@ -124,6 +130,25 @@ public class DeckContents : MonoBehaviour
         }
         GameManager.Instance.DefaulTileSprite(previewUnique);
 
+        switch (TopTile())
+        {
+            case Tile.House:
+                nbHouse--;
+                break;
+            case Tile.Road:
+                nbRoad--;
+                break;
+            case Tile.River:
+                nbRiver--;
+                break;
+            case Tile.Park:
+                nbPark--;
+                break;
+            default:
+                break;
+        }
+        showDeckValues();
+
         return tileType.Dequeue();
     }
 
@@ -140,7 +165,6 @@ public class DeckContents : MonoBehaviour
             {
                 if(pat[x,y])
                 {
-
                     previewTetris[x - 1, y].GetComponent<Image>().enabled = true;
                     GameManager.Instance.DefaulTileSprite(previewTetris[x - 1, y]);
                 }
@@ -154,7 +178,7 @@ public class DeckContents : MonoBehaviour
 
     private void Update()
     {
-
+        
         /*if (isHandEmpty && nbOfTilesPlayed <= size)
         {
             isHandEmpty = false;
@@ -276,8 +300,8 @@ public class DeckContents : MonoBehaviour
 
     private void showDeckValues()
     {
-        houseAmount.text = "×" + nbHouse;
-        parkAmount.text = "×" + nbPark;
+        houseAmount.text = "x" + nbHouse;
+        parkAmount.text = "x" + nbPark;
         riverAmount.text = "×" + nbRiver;
         roadAmount.text = "×" + nbRoad;
     }
