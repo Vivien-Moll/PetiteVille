@@ -5776,6 +5776,22 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5141053462678611439, guid: ceae0893a5c2a4e41845dd70a78a9cde, type: 3}
+      propertyPath: emptySprites.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5141053462678611439, guid: ceae0893a5c2a4e41845dd70a78a9cde, type: 3}
+      propertyPath: emptySprites.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 84b46b59cfb1d1e4d8234e0d535611aa, type: 3}
+    - target: {fileID: 5141053462678611439, guid: ceae0893a5c2a4e41845dd70a78a9cde, type: 3}
+      propertyPath: emptySprites.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: 160553d14dd99744eae0bb649a59beb1, type: 3}
+    - target: {fileID: 5141053462678611439, guid: ceae0893a5c2a4e41845dd70a78a9cde, type: 3}
+      propertyPath: emptySprites.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: de0b0c6b04fb3fa41a3592ff194fcfd7, type: 3}
+    - target: {fileID: 5141053462678611439, guid: ceae0893a5c2a4e41845dd70a78a9cde, type: 3}
       propertyPath: roadSprites.Array.data[12]
       value: 
       objectReference: {fileID: 21300000, guid: 410726f9429dad5479b695260873dfe1, type: 3}
