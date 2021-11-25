@@ -24,6 +24,8 @@ public enum Tile
     Mountain
 }
 
+
+//If we add missions we need to leave the last two as Daily Shuffle and Random Shuffle for a % operation made in dontDestroy.cs
 public enum Missions
 {
     IndustrialArea,
@@ -32,5 +34,6 @@ public enum Missions
     HabitatedIsland,
     Aqueduct,
     Highways,
-    DailyShuffle
+    DailyShuffle,
+    RandomShuffle
 }
