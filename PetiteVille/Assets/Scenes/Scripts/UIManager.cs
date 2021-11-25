@@ -21,6 +21,18 @@ public class UIManager : MonoBehaviour
         
     }
 
+    public void loadMenuScene()
+    {
+        dontDestroy.selectedMission = (Missions)(-1);
+        SceneManager.LoadScene(0);
+    }
+
+    public void loadGameScene()
+    {
+        SceneManager.LoadScene(1);
+    }
+
+
 
     public void dailyShuffleClick()
     {
@@ -73,6 +85,20 @@ public class UIManager : MonoBehaviour
     public void howToPlayClick()
     {
         explanations.SetActive(!explanations.activeSelf);
+    }
+
+    public void missionRight()
+    {
+        dontDestroy.selectedMission = (Missions)(((int)dontDestroy.selectedMission + 1) % ((int)Missions.DailyShuffle));
+        updateMissionsText();
+    }
+
+    public void missionLeft()
+    {
+        dontDestroy.selectedMission = (Missions)(int)(dontDestroy.selectedMission - 1);
+        if ((int)dontDestroy.selectedMission < 0)
+            dontDestroy.selectedMission = (Missions)((int)Missions.DailyShuffle - 1);
+        updateMissionsText();
     }
 
     public void updateMissionsText()

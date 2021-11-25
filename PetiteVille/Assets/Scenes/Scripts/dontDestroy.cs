@@ -38,18 +38,6 @@ public class dontDestroy : MonoBehaviour
         bugfixVariable = (int)selectedMission;
     }
 
-    public void missionRight()
-    {
-        selectedMission = (Missions)(((int)selectedMission +1)%((int)Missions.DailyShuffle));
-    }
-    
-    public void missionLeft()
-    {
-        selectedMission = (Missions)(int)(selectedMission - 1);
-        if ((int)selectedMission < 0)
-            selectedMission = (Missions)((int)Missions.DailyShuffle - 1);
-    }
-
     //Juste pour tester
     public static void randomShuffleClick()
     {

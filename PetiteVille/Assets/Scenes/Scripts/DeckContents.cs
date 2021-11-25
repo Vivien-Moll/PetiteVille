@@ -55,6 +55,7 @@ public class DeckContents : MonoBehaviour
         }
     }
     
+
     private void Start()
     {
         //Plus de raison de randomize le deck à priori mais si on veut test il suffit de mettre true ci-dessous
@@ -129,6 +130,7 @@ public class DeckContents : MonoBehaviour
             p.tile = TopTile();
         }
         GameManager.Instance.DefaulTileSprite(previewUnique);
+        showDeckValues();
 
         switch (TopTile())
         {
@@ -147,7 +149,7 @@ public class DeckContents : MonoBehaviour
             default:
                 break;
         }
-        showDeckValues();
+        
 
         return tileType.Dequeue();
     }
@@ -174,29 +176,6 @@ public class DeckContents : MonoBehaviour
                 }
             }
         }
-    }
-
-    private void Update()
-    {
-        
-        /*if (isHandEmpty && nbOfTilesPlayed <= size)
-        {
-            isHandEmpty = false;
-            var t = tileType.Dequeue();
-            var f = forms.Dequeue();
-
-            findTileSprite(t);
-
-            showHandCard(f);
-            showDeckValues();
-        }
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            resetHand();
-            isHandEmpty = true;
-            nbOfTilesPlayed++;
-        }*/
     }
 
     private void findTileSprite(Tile t)

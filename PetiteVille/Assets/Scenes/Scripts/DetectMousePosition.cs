@@ -97,7 +97,6 @@ public class DetectMousePosition : MonoBehaviour
                     if (Input.GetMouseButtonDown(0))
                     {
                         checkmodeTetris = false;
-                        int i = 0;
                         foreach (Transform child in tetrisContent.transform)
                             child.GetComponent<Image>().color = Color.grey;
                         singleton.GetComponent<Image>().color = Color.white;
@@ -195,22 +194,22 @@ public class DetectMousePosition : MonoBehaviour
                 description.text = "This tile is empty... Time to fill it !";
                 break;
             case Tile.House:
-                description.text = "Each filled adjacent tile that is NOT a house gives 1 point.";
+                description.text = "+2 points for each non-house tile surrounding a house.";
                 break;
             case Tile.Road:
-                description.text = "Each adjacent house and factory gives 1 point.";
+                description.text = "+2 points for each house and factory connected to a road.";
                 break;
             case Tile.River:
-                description.text = "Parks give 1 point for each adjacent river.\nIf a river crosses the map, gain 1 point for each tile in the smallest part of land.";
+                description.text = "If a river divides the map, the points of the smallest part are doubled.\nParks don't like to be near Factories.";
                 break;
             case Tile.Park:
-                description.text = "Each adjacent river gives 1 point.";
+                description.text = "+2 points for each park tile in your biggest park.\nParks don't like to be near Factories.";
                 break;
             case Tile.Factory:
-                description.text = "Each filled adjacent tile removes 1 point";
+                description.text = "Each factory gives 8 points, -2 for each park and river surrounding a factory.";
                 break;
             case Tile.Mountain:
-                description.text = "Just a mountain. They enjoy being there.";
+                description.text = "Just a mountain. They enjoy being there :)";
                 break;
             default:
                 break;

@@ -1939,6 +1939,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 842728326}
+  - component: {fileID: 842728327}
   m_Layer: 0
   m_Name: Scripts
   m_TagString: Untagged
@@ -1960,6 +1961,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &842728327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 842728325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35ab96a7fdbed0a41af77dd8228367aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  missionsText: {fileID: 0}
+  explanations: {fileID: 0}
 --- !u!1 &910406069
 GameObject:
   m_ObjectHideFlags: 0
@@ -2592,9 +2607,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 842728327}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: howToPlayClick
+        m_MethodName: loadGameScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7669,9 +7684,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 842728327}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: howToPlayClick
+        m_MethodName: loadMenuScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
