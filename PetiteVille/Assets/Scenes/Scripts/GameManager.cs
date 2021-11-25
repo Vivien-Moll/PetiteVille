@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
     private int parkRiverScore = 10;
     private int parkBiggestScore = 10;
     private int houseNearScore = 10;
+
+    private bool isGameOver = false;
     
     public static GameManager Instance { get; private set; }
     
@@ -28,6 +30,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Sprite[] emptySprites;
     [SerializeField] private Sprite[] roadSprites;
     [SerializeField] private Sprite[] riverSprites;
+    [SerializeField] private GameObject deckContentsScript;
+    [SerializeField] private GameObject endScreen;
 
     private void Awake()
     {
@@ -40,6 +44,11 @@ public class GameManager : MonoBehaviour
             Destroy(this);
             return;
         }
+    }
+
+    private void Start()
+    {
+        isGameOver = false;
     }
 
     public void DefaulTileSprite(TileObject tile)
@@ -60,69 +69,90 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (currentTile == Tile.Empty)
+        if (endScreen.activeSelf)
+            return;
+
+        if (!isGameOver)
         {
-            if(GameObject.FindGameObjectWithTag("persistant") != null)
+            if (currentTile == Tile.Empty)
             {
-                LoadBoardPreset(dontDestroy.gameData);
+                if (GameObject.FindGameObjectWithTag("persistant") != null)
+                {
+                    LoadBoardPreset(dontDestroy.gameData);
+                }
+                DrawCard();
             }
-            DrawCard();
-        }
 
-        var dmp = DetectMousePosition.Instance;
+            var dmp = DetectMousePosition.Instance;
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            if(dmp.placementValidate)
+            if (Input.GetMouseButtonDown(0))
             {
-                switch(currentTile)
+                if (dmp.placementValidate)
                 {
-                    case Tile.House:
-                        houseSound.Play();
-                        break;
+                    switch (currentTile)
+                    {
+                        case Tile.House:
+                            houseSound.Play();
+                            break;
 
-                    case Tile.Park:
-                        parkSound.Play();
-                        break;
+                        case Tile.Park:
+                            parkSound.Play();
+                            break;
 
-                    case Tile.River:
-                        riverSound.Play();
-                        break;
+                        case Tile.River:
+                            riverSound.Play();
+                            break;
 
-                    case Tile.Road:
-                        roadSound.Play();
-                        break;
-                }
+                        case Tile.Road:
+                            roadSound.Play();
+                            break;
+                    }
 
-                foreach(Vector2Int pos in dmp.selectedCells)
-                {
-                    board[pos.x, pos.y].tile = currentTile;
-                }
+                    foreach (Vector2Int pos in dmp.selectedCells)
+                    {
+                        board[pos.x, pos.y].tile = currentTile;
+                    }
 
-                if (DeckContents.Instance.DeckCount() == 0)
-                {
-                    //Finir la game
-                }
-                else
-                {
-                    DrawCard();
+                    if (DeckContents.Instance.DeckCount() == 0)
+                    {
+                        isGameOver = true;
+                    }
+                    else
+                    {
+                        DrawCard();
+                    }
                 }
             }
-        }
 
-        if (Input.GetMouseButtonDown(1))
+            if (Input.GetMouseButtonDown(1))
+            {
+                var e = CalculateScore();
+                pattern = RotatePattern(pattern);
+            }
+
+            if (Input.GetMouseButtonDown(2))
+            {
+                dmp.checkmodeTetris = !dmp.checkmodeTetris;
+
+                //currentTetris = (Tetris)(((int)currentTetris + 1) % ((int)Tetris.S_Inverted+1));
+                //ResetPattern(currentTetris);
+            }
+        }
+        else
         {
-            var e = CalculateScore();
-            pattern = RotatePattern(pattern);
-        }
+            deckContentsScript.SetActive(false);
+            endScreen.SetActive(true);
+            int[] endGameScore = CalculateScore();
+            
+            endScreen.transform.Find("endTxt").Find("House").Find("score").GetComponent<Text>().text = ": " + endGameScore[0] +" points.";
+            endScreen.transform.Find("endTxt").Find("Road").Find("score").GetComponent<Text>().text = ": " + endGameScore[1] + " points.";
+            endScreen.transform.Find("endTxt").Find("River").Find("score").GetComponent<Text>().text = ": " + endGameScore[2] + " points.";
+            endScreen.transform.Find("endTxt").Find("Park").Find("score").GetComponent<Text>().text = ": " + endGameScore[3] + " points.";
+            endScreen.transform.Find("endTxt").Find("Factory").Find("score").GetComponent<Text>().text = ": " + endGameScore[4] + " points.";
+            endScreen.transform.Find("totalScoreInt").GetComponent<Text>().text = endGameScore[5].ToString();
 
-        if (Input.GetMouseButtonDown(2))
-        {
-            dmp.checkmodeTetris = !dmp.checkmodeTetris;
-
-            //currentTetris = (Tetris)(((int)currentTetris + 1) % ((int)Tetris.S_Inverted+1));
-            //ResetPattern(currentTetris);
         }
+        
     }
 
     public int[] CalculateScore()
