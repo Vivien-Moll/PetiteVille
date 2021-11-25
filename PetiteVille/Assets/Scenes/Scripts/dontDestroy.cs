@@ -55,7 +55,7 @@ public class dontDestroy : MonoBehaviour
             for (int j = 0; j < 11; j++)
             {
 
-                gameData[i,j] = (Tile)Random.Range(1, 6); 
+                gameData[i,j] = (Tile)Random.Range(0, 7); 
                 
             }
         }

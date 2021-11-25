@@ -55,6 +55,10 @@ public class GameManager : MonoBehaviour
     {
         if (currentTile == Tile.Empty)
         {
+            if(GameObject.FindGameObjectWithTag("persistant") != null)
+            {
+                LoadBoardPreset(dontDestroy.gameData);
+            }
             DrawCard();
         }
 
