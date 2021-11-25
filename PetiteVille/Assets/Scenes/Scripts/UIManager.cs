@@ -1,9 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
+    [SerializeField] private Text missionsText;
+    [SerializeField] private GameObject accessMissionEnum;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,23 +24,52 @@ public class UIManager : MonoBehaviour
 
     public void dailyShuffleClick()
     {
-        Debug.Log("Bouton Daily à programmer lol");
+        Debug.Log("Daily");
+    }
+
+    public void randomShuffleClick()
+    {
+        SceneManager.LoadScene(1);
     }
 
     public void missionClick()
     {
-        //Output this to console when Button1 or Button3 is clicked
-        Debug.Log("You have clicked the button!");
+        Debug.Log("Mission");
     }
 
-    public void missionLeft()
+    public void howToPlayClick()
     {
-        Debug.Log("Left");
+        Debug.Log("How to Play");
     }
 
-    public void missionRight()
+    public void updateMissionsText()
     {
-        Debug.Log("Right");
+        string s;
+        switch (dontDestroy.selectedMission)
+        {
+            case Missions.IndustrialArea:
+                s = "Industrial Area";
+                break;
+            case Missions.neighborhood:
+                s = "Neighborhood";
+                break;
+            case Missions.Island:
+                s = "Island";
+                break;
+            case Missions.HabitatedIsland:
+                s = "Habitated Island";
+                break;
+            case Missions.Aqueduct:
+                s = "Aqueduct";
+                break;
+            case Missions.Highways:
+                s = "Highways";
+                break;
+            default:
+                s = "Something broke :(";
+                break;
+        }
+        missionsText.text = s;
     }
 
 }
