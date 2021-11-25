@@ -9,6 +9,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioSource roadSound;
     [SerializeField] private AudioSource riverSound;
     [SerializeField] private AudioSource parkSound;
+
+    private int roadScore = 10;
+    private int factoryBase = 100;
+    private int factoryPenalty = -25;
+    private int parkRiverScore = 10;
+    private int parkBiggestScore = 10;
+    private int houseNearScore = 10;
     
     public static GameManager Instance { get; private set; }
     
@@ -105,6 +112,7 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetMouseButtonDown(1))
         {
+            var e = CalculateScore();
             pattern = RotatePattern(pattern);
         }
 
@@ -115,6 +123,88 @@ public class GameManager : MonoBehaviour
             //currentTetris = (Tetris)(((int)currentTetris + 1) % ((int)Tetris.S_Inverted+1));
             //ResetPattern(currentTetris);
         }
+    }
+
+    public int[] CalculateScore()
+    {
+        //0 maison
+        //1 route
+        //2 rivière
+        //3 parc
+        //4 usine
+        //5 total
+
+        var result = new int[6];
+
+        var sHouse = 0;
+        var sRoad = 0;
+        var sRiver = 0;
+        var sPark = 0;
+        var sFactory = 0;
+        var sTotal = 0;
+
+        RiverScore();
+
+        RoadScore();
+
+        FactoryScore();
+
+        ParkRiverScore();
+
+        HouseNearScore();
+
+        ParkBiggestScore();
+
+        foreach(TileObject cell in board)
+        {
+            switch(cell.tile)
+            {
+                case Tile.Empty://Jolie paquerette
+                    break;
+
+                case Tile.House:
+                    sHouse += cell.GetRawScore();
+                    break;
+
+                case Tile.Road:
+                    sRoad += cell.GetRawScore();
+                    break;
+
+                case Tile.River://Non pas ici
+                    break;
+
+                case Tile.Park:
+                    sPark += cell.GetRawScore();
+                    break;
+
+                case Tile.Factory:
+                    sFactory += cell.GetRawScore();
+                    break;
+
+                case Tile.Mountain://ptdrlol
+                    break;
+            }
+
+            sRiver += cell.GetScore() - cell.GetRawScore();
+            sTotal += cell.GetScore();
+        }
+        //0 maison
+        //1 route
+        //2 rivière
+        //3 parc
+        //4 usine
+        //5 total
+        result[0] = sHouse;
+        result[1] = sRoad;
+        result[2] = sRiver;
+        result[3] = sPark;
+        result[4] = sFactory;
+        result[5] = sTotal;
+
+        Debug.Log(sTotal);
+        Debug.Log(sRiver);
+
+        return result;
     }
 
     private void DrawCard()
@@ -535,46 +625,8 @@ public class GameManager : MonoBehaviour
         return newtabl;
     }
 
-    private void calculateScore()
+    private void RiverScore()//Tuez moi
     {
-        var brd = board;
-        int finalScore = 0;
-
-        RiverScore();
-
-        foreach (TileObject tile in board)
-        {
-            finalScore += tile.getScore();
-        }
-    }
-
-    private void RiverScore()
-    {
-        var typebrd = new Tile[11,11];
-        var listRead = new List<Vector2Int>();
-        var parsedLists = new List<List<Vector2Int>>();
-        
-        int x = 0;
-        int y = 0;
-
-        var checkVector = new Vector2Int(x, y);
-
-        foreach (TileObject tile in board)
-        {
-            typebrd[tile.x, tile.y] = tile.tile;
-        }
-
-        while(listRead.Count < 121)
-        {
-            x = 0;
-            y = 0;
-
-            /*while (listRead.Exists())
-            {
-
-            }*/
-        }
-
         //On part d’en haut à gauche, on check le type de la tuile
         //Si c’est de l’eau on remplace la ref board[x,y] par null
         //Si c’est pas de l’eau on ajoute la tuile à une liste puis on check toutes les tuiles adjacentes
@@ -586,5 +638,672 @@ public class GameManager : MonoBehaviour
         //On recommence le processus à partir de la première tuile qui n’est pas null en formant une nouvelle liste
         //Quand toutes les tuiles sont null on a autant de listes que de zones de map séparées par des rivières. On regarde la liste avec le count le plus petit et on double les points de toutes les tuiles de cette liste
 
+        var typebrd = new Tile[11,11];
+        var listRead = new List<Vector2Int>();
+        var parsedLists = new List<List<Vector2Int>>();
+
+        var checkVector = new Vector2Int(0, 0);
+
+        foreach (TileObject tile in board)
+        {
+            typebrd[tile.x, tile.y] = tile.tile;
+        }
+
+        while(listRead.Count < 121) //Tant qu'il reste des éléments à lister
+        {
+            checkVector = new Vector2Int(0, 0);
+
+            while (listRead.Contains(checkVector)) //Snap au premier indice non-lu
+            {
+                if (checkVector.x == 10)
+                {
+                    if (checkVector.y == 10)
+                    {
+                        Debug.LogError("PROBLEM");
+                        break;
+                    }
+                    else
+                    {
+                        checkVector.x = 0;
+                        checkVector.y++;
+                    }
+                }
+                else
+                {
+                    checkVector.x++;
+                }
+            }
+
+            if (board[checkVector.x, checkVector.y].tile == Tile.River) //Si ce premier indice est une rivière on marque comme lu et on recommence
+            {
+                listRead.Add(checkVector);
+            }
+            else //Sinon on check les environs et on crée une "ile"
+            {
+                var toCheck = new Queue<Vector2Int>();
+
+                toCheck.Enqueue(checkVector);
+                
+                parsedLists.Add(new List<Vector2Int>());
+
+                while (toCheck.Count > 0)
+                {
+                    var current = toCheck.Dequeue();
+
+                    if (board[current.x,current.y].tile == Tile.River)
+                    {
+                        listRead.Add(current);
+                        continue;
+                    }
+                    else
+                    {
+                        listRead.Add(current);
+                        parsedLists[parsedLists.Count - 1].Add(current);
+                    }
+
+                    var adj = new List<Vector2Int>();
+
+                    if (current.x == 0)
+                    {
+                        adj.Add(new Vector2Int(current.x + 1, current.y));
+                        if (current.y == 0)
+                        {
+                            adj.Add(new Vector2Int(current.x, current.y+1));
+                            adj.Add(new Vector2Int(current.x + 1, current.y+1));
+                        }
+                        else if (current.y == 10)
+                        {
+                            adj.Add(new Vector2Int(current.x, current.y - 1));
+                            adj.Add(new Vector2Int(current.x + 1, current.y - 1));
+                        }
+                        else
+                        {
+                            adj.Add(new Vector2Int(current.x, current.y + 1));
+                            adj.Add(new Vector2Int(current.x + 1, current.y + 1));
+                            adj.Add(new Vector2Int(current.x, current.y - 1));
+                            adj.Add(new Vector2Int(current.x + 1, current.y - 1));
+                        }
+                    }
+                    else if (current.x == 10)
+                    {
+                        adj.Add(new Vector2Int(current.x - 1, current.y));
+                        if (current.y == 0)
+                        {
+                            adj.Add(new Vector2Int(current.x, current.y + 1));
+                            adj.Add(new Vector2Int(current.x - 1, current.y + 1));
+                        }
+                        else if (current.y == 10)
+                        {
+                            adj.Add(new Vector2Int(current.x, current.y - 1));
+                            adj.Add(new Vector2Int(current.x - 1, current.y - 1));
+                        }
+                        else
+                        {
+                            adj.Add(new Vector2Int(current.x, current.y + 1));
+                            adj.Add(new Vector2Int(current.x - 1, current.y + 1));
+                            adj.Add(new Vector2Int(current.x, current.y - 1));
+                            adj.Add(new Vector2Int(current.x - 1, current.y - 1));
+                        }
+                    }
+                    else
+                    {
+                        if (current.y == 0)
+                        {
+                            adj.Add(new Vector2Int(current.x-1, current.y));
+                            adj.Add(new Vector2Int(current.x + 1, current.y));
+                            adj.Add(new Vector2Int(current.x-1, current.y + 1));
+                            adj.Add(new Vector2Int(current.x, current.y + 1));
+                            adj.Add(new Vector2Int(current.x+1, current.y + 1));
+
+                        }
+                        else if (current.y == 10)
+                        {
+                            adj.Add(new Vector2Int(current.x - 1, current.y));
+                            adj.Add(new Vector2Int(current.x + 1, current.y));
+                            adj.Add(new Vector2Int(current.x - 1, current.y - 1));
+                            adj.Add(new Vector2Int(current.x, current.y - 1));
+                            adj.Add(new Vector2Int(current.x + 1, current.y - 1));
+                        }
+                        else
+                        {
+                            adj.Add(new Vector2Int(current.x - 1, current.y - 1));
+                            adj.Add(new Vector2Int(current.x, current.y - 1));
+                            adj.Add(new Vector2Int(current.x + 1, current.y - 1));
+                            adj.Add(new Vector2Int(current.x - 1, current.y));
+                            adj.Add(new Vector2Int(current.x + 1, current.y));
+                            adj.Add(new Vector2Int(current.x - 1, current.y + 1));
+                            adj.Add(new Vector2Int(current.x, current.y + 1));
+                            adj.Add(new Vector2Int(current.x + 1, current.y + 1));
+                        }
+                    }
+
+                    foreach(Vector2Int vec in adj)
+                    {
+                        if ((!toCheck.Contains(vec)) && (!listRead.Contains(vec)))
+                        {
+                            toCheck.Enqueue(vec);
+                        }
+                    }
+                }
+            }
+        }
+
+        if (parsedLists.Count == 1) //La rivière n'est pas connectée
+        {
+            return;
+        }
+
+        //Et là on trouve la plus petite liste sapristi
+
+        var mincount = 999;
+        var minlist = new List<Vector2Int>();
+
+        foreach(List<Vector2Int> l in parsedLists)
+        {
+            if (l.Count < mincount)
+            {
+                mincount = l.Count;
+                minlist = l;
+            }
+        }
+
+        foreach(Vector2Int cell in minlist)
+        {
+            board[cell.x, cell.y].coeff = 2;
+        }
+    }
+
+    private void RoadScore()
+    {
+        //On récupère ses coordonnées
+        //On récupère la ref de chaque tuile adjacente
+        //On ajoute X pour chaque maison et usine
+
+        var scor = 0;
+
+        foreach(TileObject tile in board)
+        {
+            scor = 0;
+
+            if (tile.tile == Tile.Road)
+            {
+                var type = Tile.Empty;
+
+                if (tile.x-1 >= 0)
+                {
+                    type = board[tile.x - 1, tile.y].tile;
+                    if ((type == Tile.House) || (type == Tile.Factory))
+                    {
+                        scor++;
+                    }
+                }
+
+                if (tile.x + 1 <= 10)
+                {
+                    type = board[tile.x + 1, tile.y].tile;
+                    if ((type == Tile.House) || (type == Tile.Factory))
+                    {
+                        scor++;
+                    }
+                }
+
+                if (tile.y - 1 >= 0)
+                {
+                    type = board[tile.x, tile.y-1].tile;
+                    if ((type == Tile.House) || (type == Tile.Factory))
+                    {
+                        scor++;
+                    }
+                }
+
+                if (tile.y + 1 <= 10)
+                {
+                    type = board[tile.x, tile.y + 1].tile;
+                    if ((type == Tile.House) || (type == Tile.Factory))
+                    {
+                        scor++;
+                    }
+                }
+
+                tile.score += scor * roadScore;
+            }
+        }
+    }
+
+    private void FactoryScore()
+    {
+        //On récupère ses coordonnées
+        //On récupère la ref de chaque tuile adjacente
+        //On ajoute Y pour chaque rivière et parc, Y est négatif
+
+        var scor = factoryBase;
+        var current = new Vector2Int(0, 0);
+        var adj = new List<Vector2Int>();
+
+        foreach (TileObject tile in board)
+        {
+            if (tile.tile == Tile.Factory)
+            {
+                scor = factoryBase;
+                current = new Vector2Int(tile.x, tile.y);
+                adj = new List<Vector2Int>();
+
+                if (current.x == 0)
+                {
+                    adj.Add(new Vector2Int(current.x + 1, current.y));
+                    if (current.y == 0)
+                    {
+                        adj.Add(new Vector2Int(current.x, current.y + 1));
+                        adj.Add(new Vector2Int(current.x + 1, current.y + 1));
+                    }
+                    else if (current.y == 10)
+                    {
+                        adj.Add(new Vector2Int(current.x, current.y - 1));
+                        adj.Add(new Vector2Int(current.x + 1, current.y - 1));
+                    }
+                    else
+                    {
+                        adj.Add(new Vector2Int(current.x, current.y + 1));
+                        adj.Add(new Vector2Int(current.x + 1, current.y + 1));
+                        adj.Add(new Vector2Int(current.x, current.y - 1));
+                        adj.Add(new Vector2Int(current.x + 1, current.y - 1));
+                    }
+                }
+                else if (current.x == 10)
+                {
+                    adj.Add(new Vector2Int(current.x - 1, current.y));
+                    if (current.y == 0)
+                    {
+                        adj.Add(new Vector2Int(current.x, current.y + 1));
+                        adj.Add(new Vector2Int(current.x - 1, current.y + 1));
+                    }
+                    else if (current.y == 10)
+                    {
+                        adj.Add(new Vector2Int(current.x, current.y - 1));
+                        adj.Add(new Vector2Int(current.x - 1, current.y - 1));
+                    }
+                    else
+                    {
+                        adj.Add(new Vector2Int(current.x, current.y + 1));
+                        adj.Add(new Vector2Int(current.x - 1, current.y + 1));
+                        adj.Add(new Vector2Int(current.x, current.y - 1));
+                        adj.Add(new Vector2Int(current.x - 1, current.y - 1));
+                    }
+                }
+                else
+                {
+                    if (current.y == 0)
+                    {
+                        adj.Add(new Vector2Int(current.x - 1, current.y));
+                        adj.Add(new Vector2Int(current.x + 1, current.y));
+                        adj.Add(new Vector2Int(current.x - 1, current.y + 1));
+                        adj.Add(new Vector2Int(current.x, current.y + 1));
+                        adj.Add(new Vector2Int(current.x + 1, current.y + 1));
+
+                    }
+                    else if (current.y == 10)
+                    {
+                        adj.Add(new Vector2Int(current.x - 1, current.y));
+                        adj.Add(new Vector2Int(current.x + 1, current.y));
+                        adj.Add(new Vector2Int(current.x - 1, current.y - 1));
+                        adj.Add(new Vector2Int(current.x, current.y - 1));
+                        adj.Add(new Vector2Int(current.x + 1, current.y - 1));
+                    }
+                    else
+                    {
+                        adj.Add(new Vector2Int(current.x - 1, current.y - 1));
+                        adj.Add(new Vector2Int(current.x, current.y - 1));
+                        adj.Add(new Vector2Int(current.x + 1, current.y - 1));
+                        adj.Add(new Vector2Int(current.x - 1, current.y));
+                        adj.Add(new Vector2Int(current.x + 1, current.y));
+                        adj.Add(new Vector2Int(current.x - 1, current.y + 1));
+                        adj.Add(new Vector2Int(current.x, current.y + 1));
+                        adj.Add(new Vector2Int(current.x + 1, current.y + 1));
+                    }
+                }
+
+                foreach (Vector2Int vec in adj)
+                {
+                    if ((board[vec.x,vec.y].tile == Tile.River) || (board[vec.x, vec.y].tile == Tile.Park))
+                    {
+                        scor += factoryPenalty;
+                    }
+                }
+                tile.score += scor;
+            }
+        }
+    }
+
+    private void ParkRiverScore()
+    {
+        //On récupère ses coordonnées
+        //On récupère la ref de chaque tuile adjacente
+        //On ajoute X pour chaque rivière
+
+        var scor = 0;
+        var current = new Vector2Int(0, 0);
+        var adj = new List<Vector2Int>();
+
+        foreach (TileObject tile in board)
+        {
+            if (tile.tile == Tile.Park)
+            {
+                scor = 0;
+                current = new Vector2Int(tile.x, tile.y);
+                adj = new List<Vector2Int>();
+
+                if (current.x == 0)
+                {
+                    adj.Add(new Vector2Int(current.x + 1, current.y));
+                    if (current.y == 0)
+                    {
+                        adj.Add(new Vector2Int(current.x, current.y + 1));
+                        adj.Add(new Vector2Int(current.x + 1, current.y + 1));
+                    }
+                    else if (current.y == 10)
+                    {
+                        adj.Add(new Vector2Int(current.x, current.y - 1));
+                        adj.Add(new Vector2Int(current.x + 1, current.y - 1));
+                    }
+                    else
+                    {
+                        adj.Add(new Vector2Int(current.x, current.y + 1));
+                        adj.Add(new Vector2Int(current.x + 1, current.y + 1));
+                        adj.Add(new Vector2Int(current.x, current.y - 1));
+                        adj.Add(new Vector2Int(current.x + 1, current.y - 1));
+                    }
+                }
+                else if (current.x == 10)
+                {
+                    adj.Add(new Vector2Int(current.x - 1, current.y));
+                    if (current.y == 0)
+                    {
+                        adj.Add(new Vector2Int(current.x, current.y + 1));
+                        adj.Add(new Vector2Int(current.x - 1, current.y + 1));
+                    }
+                    else if (current.y == 10)
+                    {
+                        adj.Add(new Vector2Int(current.x, current.y - 1));
+                        adj.Add(new Vector2Int(current.x - 1, current.y - 1));
+                    }
+                    else
+                    {
+                        adj.Add(new Vector2Int(current.x, current.y + 1));
+                        adj.Add(new Vector2Int(current.x - 1, current.y + 1));
+                        adj.Add(new Vector2Int(current.x, current.y - 1));
+                        adj.Add(new Vector2Int(current.x - 1, current.y - 1));
+                    }
+                }
+                else
+                {
+                    if (current.y == 0)
+                    {
+                        adj.Add(new Vector2Int(current.x - 1, current.y));
+                        adj.Add(new Vector2Int(current.x + 1, current.y));
+                        adj.Add(new Vector2Int(current.x - 1, current.y + 1));
+                        adj.Add(new Vector2Int(current.x, current.y + 1));
+                        adj.Add(new Vector2Int(current.x + 1, current.y + 1));
+
+                    }
+                    else if (current.y == 10)
+                    {
+                        adj.Add(new Vector2Int(current.x - 1, current.y));
+                        adj.Add(new Vector2Int(current.x + 1, current.y));
+                        adj.Add(new Vector2Int(current.x - 1, current.y - 1));
+                        adj.Add(new Vector2Int(current.x, current.y - 1));
+                        adj.Add(new Vector2Int(current.x + 1, current.y - 1));
+                    }
+                    else
+                    {
+                        adj.Add(new Vector2Int(current.x - 1, current.y - 1));
+                        adj.Add(new Vector2Int(current.x, current.y - 1));
+                        adj.Add(new Vector2Int(current.x + 1, current.y - 1));
+                        adj.Add(new Vector2Int(current.x - 1, current.y));
+                        adj.Add(new Vector2Int(current.x + 1, current.y));
+                        adj.Add(new Vector2Int(current.x - 1, current.y + 1));
+                        adj.Add(new Vector2Int(current.x, current.y + 1));
+                        adj.Add(new Vector2Int(current.x + 1, current.y + 1));
+                    }
+                }
+
+                foreach (Vector2Int vec in adj)
+                {
+                    if (board[vec.x, vec.y].tile == Tile.River)
+                    {
+                        scor += 1;
+                    }
+                }
+                tile.score += scor*parkRiverScore;
+            }
+        }
+    }
+
+    private void HouseNearScore()
+    {
+        //On récupère ses coordonnées
+        //On récupère la ref de chaque tuile adjacente
+        //On ajoute X pour chaque rivière
+
+        var scor = 0;
+        var current = new Vector2Int(0, 0);
+        var adj = new List<Vector2Int>();
+
+        foreach (TileObject tile in board)
+        {
+            if (tile.tile == Tile.House)
+            {
+                scor = 0;
+                current = new Vector2Int(tile.x, tile.y);
+                adj = new List<Vector2Int>();
+
+                if (current.x == 0)
+                {
+                    adj.Add(new Vector2Int(current.x + 1, current.y));
+                    if (current.y == 0)
+                    {
+                        adj.Add(new Vector2Int(current.x, current.y + 1));
+                        adj.Add(new Vector2Int(current.x + 1, current.y + 1));
+                    }
+                    else if (current.y == 10)
+                    {
+                        adj.Add(new Vector2Int(current.x, current.y - 1));
+                        adj.Add(new Vector2Int(current.x + 1, current.y - 1));
+                    }
+                    else
+                    {
+                        adj.Add(new Vector2Int(current.x, current.y + 1));
+                        adj.Add(new Vector2Int(current.x + 1, current.y + 1));
+                        adj.Add(new Vector2Int(current.x, current.y - 1));
+                        adj.Add(new Vector2Int(current.x + 1, current.y - 1));
+                    }
+                }
+                else if (current.x == 10)
+                {
+                    adj.Add(new Vector2Int(current.x - 1, current.y));
+                    if (current.y == 0)
+                    {
+                        adj.Add(new Vector2Int(current.x, current.y + 1));
+                        adj.Add(new Vector2Int(current.x - 1, current.y + 1));
+                    }
+                    else if (current.y == 10)
+                    {
+                        adj.Add(new Vector2Int(current.x, current.y - 1));
+                        adj.Add(new Vector2Int(current.x - 1, current.y - 1));
+                    }
+                    else
+                    {
+                        adj.Add(new Vector2Int(current.x, current.y + 1));
+                        adj.Add(new Vector2Int(current.x - 1, current.y + 1));
+                        adj.Add(new Vector2Int(current.x, current.y - 1));
+                        adj.Add(new Vector2Int(current.x - 1, current.y - 1));
+                    }
+                }
+                else
+                {
+                    if (current.y == 0)
+                    {
+                        adj.Add(new Vector2Int(current.x - 1, current.y));
+                        adj.Add(new Vector2Int(current.x + 1, current.y));
+                        adj.Add(new Vector2Int(current.x - 1, current.y + 1));
+                        adj.Add(new Vector2Int(current.x, current.y + 1));
+                        adj.Add(new Vector2Int(current.x + 1, current.y + 1));
+
+                    }
+                    else if (current.y == 10)
+                    {
+                        adj.Add(new Vector2Int(current.x - 1, current.y));
+                        adj.Add(new Vector2Int(current.x + 1, current.y));
+                        adj.Add(new Vector2Int(current.x - 1, current.y - 1));
+                        adj.Add(new Vector2Int(current.x, current.y - 1));
+                        adj.Add(new Vector2Int(current.x + 1, current.y - 1));
+                    }
+                    else
+                    {
+                        adj.Add(new Vector2Int(current.x - 1, current.y - 1));
+                        adj.Add(new Vector2Int(current.x, current.y - 1));
+                        adj.Add(new Vector2Int(current.x + 1, current.y - 1));
+                        adj.Add(new Vector2Int(current.x - 1, current.y));
+                        adj.Add(new Vector2Int(current.x + 1, current.y));
+                        adj.Add(new Vector2Int(current.x - 1, current.y + 1));
+                        adj.Add(new Vector2Int(current.x, current.y + 1));
+                        adj.Add(new Vector2Int(current.x + 1, current.y + 1));
+                    }
+                }
+
+                foreach (Vector2Int vec in adj)
+                {
+                    if ((board[vec.x, vec.y].tile != Tile.House) && (board[vec.x, vec.y].tile != Tile.Empty))
+                    {
+                        scor += 1;
+                    }
+                }
+                tile.score += scor* houseNearScore;
+            }
+        }
+    }
+
+    private void ParkBiggestScore()
+    {
+        //On crée un compteur général et un compteur local (type int, = 0)
+        //On part du premier parc de la liste, on le retire de cette liste et on ajoute 1 au compteur local
+        //On check chaque tuile adjacente, si on trouve un parc on le retire, on ajoute 1 au local et on check les tuiles adjacentes etc…
+        //Ensuite on regarde si local > général, si oui général = local
+
+        //On recommence la boucle avec le prochain parc restant dans la liste
+
+        //Quand la liste est vide on ajoute X * général points
+
+        var typebrd = new Tile[11, 11];
+        var listRead = new List<Vector2Int>();
+        var parsedLists = new List<List<Vector2Int>>();
+
+        var checkVector = new Vector2Int(0, 0);
+
+        foreach (TileObject tile in board)
+        {
+            typebrd[tile.x, tile.y] = tile.tile;
+        }
+
+        while (listRead.Count < 121) //Tant qu'il reste des éléments à lister
+        {
+            checkVector = new Vector2Int(0, 0);
+
+            while (listRead.Contains(checkVector)) //Snap au premier indice non-lu
+            {
+                if (checkVector.x == 10)
+                {
+                    if (checkVector.y == 10)
+                    {
+                        Debug.LogError("PROBLEM");
+                        break;
+                    }
+                    else
+                    {
+                        checkVector.x = 0;
+                        checkVector.y++;
+                    }
+                }
+                else
+                {
+                    checkVector.x++;
+                }
+            }
+
+            if (board[checkVector.x, checkVector.y].tile != Tile.Park) //Si ce premier indice est pas un parc on s'en fout
+            {
+                listRead.Add(checkVector);
+            }
+            else //Sinon on check les environs
+            {
+                var toCheck = new Queue<Vector2Int>();
+
+                toCheck.Enqueue(checkVector);
+
+                parsedLists.Add(new List<Vector2Int>());
+
+                while (toCheck.Count > 0)
+                {
+                    var current = toCheck.Dequeue();
+
+                    if (board[current.x, current.y].tile != Tile.Park)
+                    {
+                        listRead.Add(current);
+                        continue;
+                    }
+                    else
+                    {
+                        listRead.Add(current);
+                        parsedLists[parsedLists.Count - 1].Add(current);
+                    }
+
+                    var adj = new List<Vector2Int>();
+
+                    if (current.x - 1 >= 0)
+                    {
+                        adj.Add(new Vector2Int(current.x-1, current.y));
+                    }
+
+                    if (current.x + 1 <= 10)
+                    {
+                        adj.Add(new Vector2Int(current.x + 1, current.y));
+                    }
+
+                    if (current.y - 1 >= 0)
+                    {
+                        adj.Add(new Vector2Int(current.x, current.y-1));
+                    }
+
+                    if (current.y + 1 <= 10)
+                    {
+                        adj.Add(new Vector2Int(current.x, current.y + 1));
+                    }
+
+                    foreach (Vector2Int vec in adj)
+                    {
+                        if ((!toCheck.Contains(vec)) && (!listRead.Contains(vec)))
+                        {
+                            toCheck.Enqueue(vec);
+                        }
+                    }
+                }
+            }
+        }
+
+        var maxcount = 0;
+        var maxlist = new List<Vector2Int>();
+
+        foreach (List<Vector2Int> l in parsedLists)
+        {
+            if (l.Count > maxcount)
+            {
+                maxcount = l.Count;
+                maxlist = l;
+            }
+        }
+
+        foreach(Vector2Int v in maxlist)
+        {
+            board[v.x, v.y].score += parkBiggestScore;
+        }
     }
 }

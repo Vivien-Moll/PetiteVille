@@ -19,8 +19,8 @@ public class TileObject : MonoBehaviour
     [SerializeField]
     private bool partOfUniquePreview = false;
 
-    public int score { get; private set; } = 0;
-    public int coeff { get; private set; } = 1;
+    public int score = 0;
+    public int coeff = 1;
 
     public float randomFlower { get; private set; } = 0f;
 
@@ -63,8 +63,13 @@ public class TileObject : MonoBehaviour
         }
     }
 
-    public int getScore()
+    public int GetScore()
     {
         return score * coeff;
+    }
+
+    public int GetRawScore()
+    {
+        return score;
     }
 }
