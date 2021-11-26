@@ -82,7 +82,7 @@ public class UIManager : MonoBehaviour
                     return;
                     break;
                 default:
-                    return;
+                    missionRight();
                     break;
             }
             SceneManager.LoadScene(1);

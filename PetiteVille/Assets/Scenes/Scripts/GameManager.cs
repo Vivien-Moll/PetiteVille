@@ -10,12 +10,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioSource riverSound;
     [SerializeField] private AudioSource parkSound;
 
-    private int roadScore = 10;
-    private int factoryBase = 100;
-    private int factoryPenalty = -25;
-    private int parkRiverScore = 10;
-    private int parkBiggestScore = 10;
-    private int houseNearScore = 10;
+    private int roadScore = 2;
+    private int factoryBase = 10;
+    private int factoryPenalty = -3;
+    private int parkRiverScore = 2;
+    private int parkBiggestScore = 2;
+    private int houseNearScore = 1;
 
     private bool isGameOver = false;
     
