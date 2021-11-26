@@ -260,9 +260,8 @@ public class dontDestroy : MonoBehaviour
     public static void setupDailyShuffle()
     {
         lastGameMode = Missions.DailyShuffle;
-
-        System.Globalization.CultureInfo cultureinfo = new System.Globalization.CultureInfo("fr-FR");
-        DateTime dt = DateTime.Parse(DateTime.Today.ToString(), cultureinfo);
+        
+        DateTime dt = DateTime.Today;
         UnityEngine.Random.InitState(dt.GetHashCode());
 
         setupRandomGame();
@@ -272,6 +271,7 @@ public class dontDestroy : MonoBehaviour
     {
         if (lastGameMode != Missions.DailyShuffle)
         {
+            UnityEngine.Random.InitState(Environment.TickCount);
             lastGameMode = Missions.RandomShuffle;
         }
 
