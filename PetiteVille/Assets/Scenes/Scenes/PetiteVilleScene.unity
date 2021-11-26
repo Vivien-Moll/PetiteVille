@@ -158,7 +158,7 @@ RectTransform:
   - {fileID: 1074785584}
   - {fileID: 1940622720}
   m_Father: {fileID: 1062830561}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -959,7 +959,7 @@ RectTransform:
   m_Children:
   - {fileID: 139039556}
   m_Father: {fileID: 1062830561}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1701,7 +1701,7 @@ RectTransform:
   - {fileID: 349532550}
   - {fileID: 205423016}
   m_Father: {fileID: 1062830561}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2187,6 +2187,85 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   missionsText: {fileID: 0}
   explanations: {fileID: 0}
+--- !u!1 &859662584
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 859662585}
+  - component: {fileID: 859662587}
+  - component: {fileID: 859662586}
+  m_Layer: 0
+  m_Name: currentScoreTxT
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &859662585
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 859662584}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.0005057, y: 1.0005057, z: 1.0005057}
+  m_Children: []
+  m_Father: {fileID: 1062830561}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -277, y: 308}
+  m_SizeDelta: {x: 412.34, y: 40.47}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &859662586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 859662584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: efb3f49a71dcf2844affc4c6f446a142, type: 3}
+    m_FontSize: 30
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 0
+    m_MaxSize: 46
+    m_Alignment: 1
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 'Current score : 1992'
+--- !u!222 &859662587
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 859662584}
+  m_CullTransparentMesh: 1
 --- !u!1 &894591171
 GameObject:
   m_ObjectHideFlags: 0
@@ -2217,7 +2296,7 @@ RectTransform:
   m_LocalScale: {x: 1.0005057, y: 1.0005057, z: 1.0005057}
   m_Children: []
   m_Father: {fileID: 1062830561}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2392,7 +2471,7 @@ RectTransform:
   m_LocalScale: {x: 1.0005057, y: 1.0005057, z: 1.0005057}
   m_Children: []
   m_Father: {fileID: 1062830561}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2801,10 +2880,11 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 2113530512}
+  - {fileID: 859662585}
   - {fileID: 215532408}
   - {fileID: 922818998}
-  - {fileID: 1979723589}
   - {fileID: 1222913629}
+  - {fileID: 1979723589}
   - {fileID: 542750314}
   - {fileID: 1957678264}
   - {fileID: 1907269409}
@@ -3567,7 +3647,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3334132113589618537, guid: 045faf205b95d4d4ea3f7c69c1d9ff4a, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3334132113589618537, guid: 045faf205b95d4d4ea3f7c69c1d9ff4a, type: 3}
       propertyPath: m_AnchorMax.x
@@ -7132,7 +7212,7 @@ RectTransform:
   m_LocalScale: {x: 1.0005057, y: 1.0005057, z: 1.0005057}
   m_Children: []
   m_Father: {fileID: 1062830561}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -7777,6 +7857,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5141053462678611439, guid: ceae0893a5c2a4e41845dd70a78a9cde, type: 3}
+      propertyPath: currentScore
+      value: 
+      objectReference: {fileID: 859662586}
+    - target: {fileID: 5141053462678611439, guid: ceae0893a5c2a4e41845dd70a78a9cde, type: 3}
       propertyPath: deckContentsScript
       value: 
       objectReference: {fileID: 1684848906}
@@ -7913,7 +7997,7 @@ RectTransform:
   m_LocalScale: {x: 1.0005057, y: 1.0005057, z: 1.0005057}
   m_Children: []
   m_Father: {fileID: 1062830561}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -7996,7 +8080,7 @@ RectTransform:
   - {fileID: 713157195}
   - {fileID: 974788056}
   m_Father: {fileID: 1062830561}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -8299,7 +8383,7 @@ RectTransform:
   m_Children:
   - {fileID: 1935680700}
   m_Father: {fileID: 1062830561}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

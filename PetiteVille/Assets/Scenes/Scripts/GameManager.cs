@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Sprite[] riverSprites;
     [SerializeField] private GameObject deckContentsScript;
     [SerializeField] private GameObject endScreen;
+    [SerializeField] private Text currentScore;
 
     private void Awake()
     {
@@ -76,6 +77,8 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        currentScore.text = "Current score : " + CalculateScore()[5];
+
         if (endScreen.activeSelf)
             return;
 
@@ -120,6 +123,8 @@ public class GameManager : MonoBehaviour
                         board[pos.x, pos.y].tile = currentTile;
                     }
 
+                    currentScore.text = "Current score : " + CalculateScore()[5];
+
                     if (DeckContents.Instance.DeckCount() == 0)
                     {
                         isGameOver = true;
@@ -163,6 +168,12 @@ public class GameManager : MonoBehaviour
 
     public int[] CalculateScore()
     {
+
+        foreach (TileObject cell in board)
+        {
+            cell.score = 0;
+            cell.coeff = 1;
+        }
         //0 maison
         //1 route
         //2 rivière

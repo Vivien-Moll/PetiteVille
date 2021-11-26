@@ -23,6 +23,7 @@ public class UIManager : MonoBehaviour
 
     public void loadMenuScene()
     {
+        dontDestroy.resetQueues();
         dontDestroy.lastGameMode = Missions.IndustrialArea;
         dontDestroy.selectedMission = (Missions)(-1);
         SceneManager.LoadScene(0);

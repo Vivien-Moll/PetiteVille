@@ -645,4 +645,11 @@ public class dontDestroy : MonoBehaviour
                 break;
         }
     }
+
+    public static void resetQueues()
+    {
+        tileType = new Queue<Tile>();
+        forms = new Queue<Tetris>();
+}
+
 }
