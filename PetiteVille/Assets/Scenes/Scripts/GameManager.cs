@@ -248,9 +248,6 @@ public class GameManager : MonoBehaviour
         result[4] = sFactory;
         result[5] = sTotal;
 
-        Debug.Log(sTotal);
-        Debug.Log(sRiver);
-
         return result;
     }
 
