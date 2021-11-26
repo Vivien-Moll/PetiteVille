@@ -23,6 +23,7 @@ public class UIManager : MonoBehaviour
 
     public void loadMenuScene()
     {
+        dontDestroy.lastGameMode = Missions.IndustrialArea;
         dontDestroy.selectedMission = (Missions)(-1);
         SceneManager.LoadScene(0);
     }
@@ -32,12 +33,17 @@ public class UIManager : MonoBehaviour
         SceneManager.LoadScene(1);
     }
 
+    public void Replay()
+    {
+        dontDestroy.ReplayLastGameMode();
+        loadGameScene();
+    }
 
-
+    /*
     public void dailyShuffleClick()
     {
         Debug.Log("Daily");
-    }
+    }*/
 
     public void randomShuffleClick()
     {
