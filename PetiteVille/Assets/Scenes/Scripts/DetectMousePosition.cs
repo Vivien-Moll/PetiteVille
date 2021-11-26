@@ -194,19 +194,19 @@ public class DetectMousePosition : MonoBehaviour
                 description.text = "This tile is empty... Time to fill it !";
                 break;
             case Tile.House:
-                description.text = "+2 points for each non-house tile surrounding a house.";
+                description.text = "+10 points for each non-house tile surrounding a house.";
                 break;
             case Tile.Road:
-                description.text = "+2 points for each house and factory connected to a road.";
+                description.text = "+10 points for each house and factory connected to a road.";
                 break;
             case Tile.River:
-                description.text = "If a river divides the map, the points of the smallest part are doubled.\nParks don't like to be near Factories.";
+                description.text = "If a river divides the map, the points of the smallest part are doubled.\nRivers don't like to be near Factories.";
                 break;
             case Tile.Park:
-                description.text = "+2 points for each park tile in your biggest park.\nParks don't like to be near Factories.";
+                description.text = "+10 points for each park tile in your biggest park. +10 points for each river surrounding a park.\nParks don't like to be near Factories.";
                 break;
             case Tile.Factory:
-                description.text = "Each factory gives 8 points, -2 for each park and river surrounding a factory.";
+                description.text = "Each factory gives 100 points, -25 for each park and river surrounding a factory.";
                 break;
             case Tile.Mountain:
                 description.text = "Just a mountain. They enjoy being there :)";

@@ -406,7 +406,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 84b46b59cfb1d1e4d8234e0d535611aa, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6e826b2ee9671084bb41430b8b421846, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -796,7 +796,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 84b46b59cfb1d1e4d8234e0d535611aa, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 160553d14dd99744eae0bb649a59beb1, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -899,6 +899,7 @@ GameObject:
   m_Component:
   - component: {fileID: 190805291}
   - component: {fileID: 190805292}
+  - component: {fileID: 190805293}
   m_Layer: 0
   m_Name: DontDestroyOnLoad
   m_TagString: persistant
@@ -933,6 +934,102 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bugfixVariable: 0
+--- !u!82 &190805293
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 190805290}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: d354f510b55d39647baea762594f3834, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.066
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &205824810
 GameObject:
   m_ObjectHideFlags: 0
@@ -1378,7 +1475,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "You want to connect roads to houses and factories.\r\n+2 points for each
+  m_Text: "You want to connect roads to houses and factories.\r\n+10 points for each
     house and factory connected to a road.\r"
 --- !u!222 &274820456
 CanvasRenderer:
@@ -3078,7 +3175,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 84b46b59cfb1d1e4d8234e0d535611aa, type: 3}
+  m_Sprite: {fileID: 21300000, guid: fa354fb218a9cf6488413a3cb92da7df, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3153,7 +3250,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 84b46b59cfb1d1e4d8234e0d535611aa, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6e826b2ee9671084bb41430b8b421846, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4031,8 +4128,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 284.33, y: 0}
-  m_SizeDelta: {x: 490.64, y: 96.82}
+  m_AnchoredPosition: {x: 283, y: 0.0000019073}
+  m_SizeDelta: {x: 490.64, y: 121.38}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &707041478
 MonoBehaviour:
@@ -4067,9 +4164,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "You want to connect parks to each others and surround them with rivers.\r\n+2
-    points for each park tile in your biggest park.\r\n+2 points for each river surrounding
-    a park.\r"
+  m_Text: "You want to connect parks to each others and surround them with rivers.\r\n+10
+    points for each park tile in your biggest park.\r\n+10 points for each river
+    surrounding a park.\r"
 --- !u!222 &707041479
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4439,7 +4536,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 84b46b59cfb1d1e4d8234e0d535611aa, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 410726f9429dad5479b695260873dfe1, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6005,7 +6102,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 84b46b59cfb1d1e4d8234e0d535611aa, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b36973532353b4c48b5fadb38171cafa, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6093,8 +6190,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "You want to surround houses with tiles of another type.\r\n+2 points for
-    each non-house tile surrounding a house.\r"
+  m_Text: "You want to surround houses with tiles of another type.\r\n+10 points
+    for each non-house tile surrounding a house.\r"
 --- !u!222 &994442680
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9194,7 +9291,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 84b46b59cfb1d1e4d8234e0d535611aa, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b471a8998e4ff6d4a8a18b6149f85b54, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -10227,7 +10324,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 84b46b59cfb1d1e4d8234e0d535611aa, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 160553d14dd99744eae0bb649a59beb1, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -11113,7 +11210,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 190805292}
         m_TargetAssemblyTypeName: dontDestroy, Assembly-CSharp
-        m_MethodName: randomShuffleClick
+        m_MethodName: setupRandomGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -11613,7 +11710,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 84b46b59cfb1d1e4d8234e0d535611aa, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6e826b2ee9671084bb41430b8b421846, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -11926,8 +12023,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "You want to cut the board in two using rivers.\nIf a river divides the
-    map, the points of the smallest part are doubled.\r"
+  m_Text: 'You want to cut the board in two using rivers.
+
+    If a river divides
+    the map, the points of the smallest part are doubled..'
 --- !u!222 &1929607552
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12083,8 +12182,8 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "Factories are already placed on the map. You want to avoid surrounding
-    factories with parks and rivers.\r\nEach factory gives 8 points, -2 points for
-    each park and river surrounding a factory.\r"
+    factories with parks and rivers.\r\nEach factory gives 100 points, -25 points
+    for each park and river surrounding a factory.\r"
 --- !u!222 &1983341586
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12225,7 +12324,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 84b46b59cfb1d1e4d8234e0d535611aa, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 92211358a723eed4cabf07319b354e36, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -12626,21 +12725,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 875379624}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: dailyShuffleClick
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: dailyShuffleClick
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 190805292}
         m_TargetAssemblyTypeName: dontDestroy, Assembly-CSharp
-        m_MethodName: setupIndustrialArea
+        m_MethodName: setupDailyShuffle
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -15444,7 +15531,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b471a8998e4ff6d4a8a18b6149f85b54, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 84b46b59cfb1d1e4d8234e0d535611aa, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -17402,7 +17489,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 84b46b59cfb1d1e4d8234e0d535611aa, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2282f88ec260bfe499e0f4843ad46ec2, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -19034,7 +19121,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6cfe34ef0639a23499f528be0d7c71f2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 84b46b59cfb1d1e4d8234e0d535611aa, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -20234,7 +20321,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 84b46b59cfb1d1e4d8234e0d535611aa, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6cfe34ef0639a23499f528be0d7c71f2, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

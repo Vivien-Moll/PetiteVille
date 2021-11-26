@@ -2609,7 +2609,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 842728327}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: loadGameScene
+        m_MethodName: Replay
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
