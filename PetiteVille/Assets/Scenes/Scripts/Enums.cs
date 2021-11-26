@@ -30,10 +30,10 @@ public enum Missions
 {
     IndustrialArea,
     neighborhood,
-    Island,
-    HabitatedIsland,
-    Aqueduct,
-    Highways,
+    //Island,
+    //HabitatedIsland,
+    //Aqueduct,
+    //Highways,
     DailyShuffle,
     RandomShuffle
 }

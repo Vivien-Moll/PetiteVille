@@ -62,7 +62,7 @@ public class UIManager : MonoBehaviour
                 case Missions.neighborhood:
                     dontDestroy.setupNeighborhood();
                     break;
-                case Missions.Island:
+                /*case Missions.Island:
                     return;
                     break;
                 case Missions.HabitatedIsland:
@@ -73,7 +73,7 @@ public class UIManager : MonoBehaviour
                     break;
                 case Missions.Highways:
                     return;
-                    break;
+                    break;*/
                 case Missions.DailyShuffle:
                     return;
                     break;
@@ -118,7 +118,7 @@ public class UIManager : MonoBehaviour
             case Missions.neighborhood:
                 s = "Neighborhood";
                 break;
-            case Missions.Island:
+            /*case Missions.Island:
                 s = "Island";
                 break;
             case Missions.HabitatedIsland:
@@ -129,7 +129,7 @@ public class UIManager : MonoBehaviour
                 break;
             case Missions.Highways:
                 s = "Highways";
-                break;
+                break;*/
             default:
                 s = "Something broke :(";
                 break;

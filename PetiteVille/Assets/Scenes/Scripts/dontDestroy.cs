@@ -269,6 +269,7 @@ public class dontDestroy : MonoBehaviour
 
     public static void setupRandomGame()
     {
+        tileType = new Queue<Tile>();
         if (lastGameMode != Missions.DailyShuffle)
         {
             UnityEngine.Random.InitState(Environment.TickCount);
