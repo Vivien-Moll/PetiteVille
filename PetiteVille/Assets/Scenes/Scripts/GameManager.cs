@@ -53,7 +53,14 @@ public class GameManager : MonoBehaviour
 
     public void DefaulTileSprite(TileObject tile)
     {
-        tile.GetComponent<Image>().sprite = tileSprites[(int)tile.tile];
+        if (tile.tile == Tile.Road)
+        {
+            tile.GetComponent<Image>().sprite = roadSprites[0];
+        }
+        else
+        {
+            tile.GetComponent<Image>().sprite = tileSprites[(int)tile.tile];
+        }
     }
 
     public void LoadBoardPreset(Tile[,] preset)
