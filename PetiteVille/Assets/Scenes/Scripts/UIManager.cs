@@ -87,6 +87,10 @@ public class UIManager : MonoBehaviour
             }
             SceneManager.LoadScene(1);
         }
+        else
+        {
+            missionRight();
+        }
     }
 
     public void howToPlayClick()

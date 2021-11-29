@@ -281,7 +281,7 @@ public class DeckContents : MonoBehaviour
     {
         houseAmount.text = "x" + nbHouse;
         parkAmount.text = "x" + nbPark;
-        riverAmount.text = "×" + nbRiver;
-        roadAmount.text = "×" + nbRoad;
+        riverAmount.text = "x" + nbRiver;
+        roadAmount.text = "x" + nbRoad;
     }
 }
