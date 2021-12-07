@@ -21,6 +21,10 @@ public class DetectMousePosition : MonoBehaviour
     [SerializeField] Image descriptionSprite;
     [SerializeField] GameObject tetrisContent;
     [SerializeField] GameObject singleton;
+    [SerializeField] Text stopClickingMotherfucker;
+
+    private Color baseColor;
+    private int messageNb = 0;
 
     public bool placementValidate { get; private set; } = false;
     public List<Vector2Int> selectedCells { get; private set; } = new List<Vector2Int>();
@@ -44,6 +48,7 @@ public class DetectMousePosition : MonoBehaviour
         m_Raycaster = GetComponent<GraphicRaycaster>();
         //Fetch the Event System from the Scene
         m_EventSystem = GetComponent<EventSystem>();
+        baseColor = stopClickingMotherfucker.color;
     }
 
     void Update()
@@ -77,7 +82,7 @@ public class DetectMousePosition : MonoBehaviour
         {
             var res = result.gameObject.GetComponent<TileObject>();
 
-            if (res != null)
+            if (res != null && UIManager.tetrisModeNeedsChanging == false)
             {
                 checkTileType(res);
                 if (res.isPartOfBoard())
@@ -111,8 +116,80 @@ public class DetectMousePosition : MonoBehaviour
                         singleton.GetComponent<Image>().color = Color.grey;
                     }
                 }
+                else
+                {
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        switch (messageNb)
+                        {
+                            case 0:
+                                break;
+                            case 1:
+                                stopClickingMotherfucker.text = "No, you really can't !";
+                                break;
+                            case 2:
+                                stopClickingMotherfucker.text = "You can't chose tiles here !";
+                                break;
+                            case 3:
+                                stopClickingMotherfucker.text = "You can't chose tiles anywhere !";
+                                break;
+                            case 4:
+                                stopClickingMotherfucker.text = "Just play what we're showing at the bottom !";
+                                break;
+                            case 5:
+                                stopClickingMotherfucker.text = "Dude seriously...";
+                                break;
+                            case 6:
+                                stopClickingMotherfucker.text = "Bottom image is what you can play.";
+                                break;
+                            case 7:
+                                stopClickingMotherfucker.text = "Inside the big boxes";
+                                break;
+                            case 8:
+                                stopClickingMotherfucker.text = "You're just trolling now...";
+                                break;
+                            case 9:
+                                stopClickingMotherfucker.text = "I'm not saying anything anymore";
+                                break;
+                            case 10:
+                                stopClickingMotherfucker.text = "...";
+                                break;
+                            case 11:
+                                stopClickingMotherfucker.text = "...";
+                                break;
+                            case 12:
+                                stopClickingMotherfucker.text = "!!!";
+                                break;
+                            default:
+                                stopClickingMotherfucker.text = "QJVLQBSDVJQBSVLQUSBDVLQIBVLOAEBFA";
+                                break;
+                        }
 
+                        stopClickingMotherfucker.CrossFadeAlpha(1f, 0f, false);
+                        stopClickingMotherfucker.color = Color.red;
+                        stopClickingMotherfucker.CrossFadeAlpha(0.0f, 3f, false);
+                        messageNb++;
+                    }
+                }
                 break;
+            }
+            else if (UIManager.tetrisModeNeedsChanging)
+            {
+                UIManager.tetrisModeNeedsChanging = false;
+                if (checkmodeTetris)
+                {
+                    checkmodeTetris = false;
+                    foreach (Transform child in tetrisContent.transform)
+                        child.GetComponent<Image>().color = Color.grey;
+                    singleton.GetComponent<Image>().color = Color.white;
+                }
+                else
+                {
+                    checkmodeTetris = true;
+                    foreach (Transform child in tetrisContent.transform)
+                        child.GetComponent<Image>().color = Color.white;
+                    singleton.GetComponent<Image>().color = Color.grey;
+                }
             }
         }
     }

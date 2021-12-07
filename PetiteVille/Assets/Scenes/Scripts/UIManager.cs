@@ -8,17 +8,16 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField] private Text missionsText;
     [SerializeField] private GameObject explanations;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public static bool patternNeedsRotating = false;
+    public static bool tetrisModeNeedsChanging = false;
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            changeTetrisMode();
+        }
     }
 
     public void loadMenuScene()
@@ -38,6 +37,16 @@ public class UIManager : MonoBehaviour
     {
         dontDestroy.ReplayLastGameMode();
         loadGameScene();
+    }
+
+    public void rotatePattern()
+    {
+        patternNeedsRotating = true;
+    }
+
+    public void changeTetrisMode()
+    {
+        tetrisModeNeedsChanging = true;
     }
 
     /*

@@ -139,9 +139,10 @@ public class GameManager : MonoBehaviour
                 }
             }
 
-            if (Input.GetMouseButtonDown(1))
+            if (Input.GetMouseButtonDown(1) || UIManager.patternNeedsRotating)
             {
                 pattern = RotatePattern(pattern);
+                UIManager.patternNeedsRotating = false;
             }
 
             if (Input.GetMouseButtonDown(2))
@@ -652,7 +653,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private bool[,] RotatePattern(bool[,] tabl)
+    public bool[,] RotatePattern(bool[,] tabl)
     {
         var newtabl = new bool[5, 5]; //X = Y; Y = -X;
 
