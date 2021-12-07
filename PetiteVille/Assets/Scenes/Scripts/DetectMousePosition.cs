@@ -134,7 +134,7 @@ public class DetectMousePosition : MonoBehaviour
                                 stopClickingMotherfucker.text = "You can't chose tiles anywhere !";
                                 break;
                             case 4:
-                                stopClickingMotherfucker.text = "Just play what we're showing at the bottom !";
+                                stopClickingMotherfucker.text = "Just play what we're showing you !";
                                 break;
                             case 5:
                                 stopClickingMotherfucker.text = "Dude seriously...";

@@ -877,6 +877,11 @@ public class GameManager : MonoBehaviour
     {
         List<List<Vector2Int>>  parsedLists = ParseRivers();
 
+        if (parsedLists.Count == 1)
+        {
+            return;
+        }
+
         //Et là on trouve la plus petite liste sapristi
 
         var mincount = 999;
