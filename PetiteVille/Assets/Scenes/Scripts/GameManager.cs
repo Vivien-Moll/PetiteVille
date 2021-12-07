@@ -260,7 +260,7 @@ public class GameManager : MonoBehaviour
         currentTile = DeckContents.Instance.GetTile();
         ResetPattern(currentTetris);
 
-        DeckContents.Instance.RefreshTetris(pattern);
+        DeckContents.Instance.RefreshTetris(currentTetris);
     }
 
     public void AddTile(int x, int y, TileObject tile)

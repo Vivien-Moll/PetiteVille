@@ -39,7 +39,7 @@ public class DeckContents : MonoBehaviour
     private Queue<Tile> tileType = new Queue<Tile>();
     private Queue<Tetris> forms = new Queue<Tetris>();
 
-    private TileObject[,] previewTetris = new TileObject[3, 4];
+    private TileObject[,] previewTetris = new TileObject[4, 3];
     private TileObject previewUnique;
 
     private void Awake()
@@ -159,24 +159,68 @@ public class DeckContents : MonoBehaviour
         return forms.Dequeue();
     }
 
-    public void RefreshTetris(bool[,] pat)
-    {//Changer orientation du tableau et type d'input. Récup un Tetris puis faire un switch avec des coordonnées manuelles
-        //Transposer le tableau
-        //Changer les appels de la fonction dans gamemanager
-        for (var x = 1; x < 4; x++)
+    public void RefreshTetris(Tetris pat)
+    {
+        for (var x = 0; x < 4; x++)
         {
-            for(var y = 0; y < 4; y++)
+            for(var y = 0; y < 3; y++)
             {
-                if(pat[x,y])
-                {
-                    previewTetris[x - 1, y].GetComponent<Image>().enabled = true;
-                    GameManager.Instance.DefaulTileSprite(previewTetris[x - 1, y]);
-                }
-                else
-                {
-                    previewTetris[x - 1, y].GetComponent<Image>().enabled = false;
-                }
+                previewTetris[x,y].GetComponent<Image>().enabled = false;
             }
+        }
+
+        List<Vector2Int> tet = new List<Vector2Int>();
+
+        switch (pat)
+        {
+            case Tetris.Square:
+                tet.Add(new Vector2Int(1, 1));
+                tet.Add(new Vector2Int(1, 2));
+                tet.Add(new Vector2Int(2, 1));
+                tet.Add(new Vector2Int(2, 2));
+                break;
+            case Tetris.Line:
+                tet.Add(new Vector2Int(0, 1));
+                tet.Add(new Vector2Int(1, 1));
+                tet.Add(new Vector2Int(2, 1));
+                tet.Add(new Vector2Int(3, 1));
+                break;
+            case Tetris.T:
+                tet.Add(new Vector2Int(0, 1));
+                tet.Add(new Vector2Int(1, 1));
+                tet.Add(new Vector2Int(2, 1));
+                tet.Add(new Vector2Int(1, 2));
+                break;
+            case Tetris.L:
+                tet.Add(new Vector2Int(1, 0));
+                tet.Add(new Vector2Int(1, 1));
+                tet.Add(new Vector2Int(1, 2));
+                tet.Add(new Vector2Int(2, 2));
+                break;
+            case Tetris.L_Inverted:
+                tet.Add(new Vector2Int(2, 0));
+                tet.Add(new Vector2Int(2, 1));
+                tet.Add(new Vector2Int(1, 2));
+                tet.Add(new Vector2Int(2, 2));
+                break;
+            case Tetris.S:
+                tet.Add(new Vector2Int(1, 1));
+                tet.Add(new Vector2Int(2, 1));
+                tet.Add(new Vector2Int(1, 2));
+                tet.Add(new Vector2Int(0, 2));
+                break;
+            case Tetris.S_Inverted:
+                tet.Add(new Vector2Int(1, 1));
+                tet.Add(new Vector2Int(2, 1));
+                tet.Add(new Vector2Int(3, 2));
+                tet.Add(new Vector2Int(2, 2));
+                break;
+        }
+
+        foreach(Vector2Int vec in tet)
+        {
+            previewTetris[vec.x,vec.y].GetComponent<Image>().enabled = true;
+            GameManager.Instance.DefaulTileSprite(previewTetris[vec.x, vec.y]);
         }
     }
 
