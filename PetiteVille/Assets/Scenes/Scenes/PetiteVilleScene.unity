@@ -538,6 +538,7 @@ MonoBehaviour:
   partOfUniquePreview: 0
   score: 0
   coeff: 1
+  riverTimer: 0
   tile: 3
 --- !u!1 &84309037
 GameObject:
@@ -649,7 +650,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 156, y: -148}
+  m_AnchoredPosition: {x: 186.00006, y: -129}
   m_SizeDelta: {x: 64, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &94776914
@@ -702,13 +703,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7115e9848171dd444ab9d449df1a222a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _x: 2
-  _y: 2
+  _x: 3
+  _y: 1
   partOfTheBoard: 0
   partOfTetrisPreview: 1
   partOfUniquePreview: 0
   score: 0
   coeff: 1
+  riverTimer: 0
   tile: 0
 --- !u!1 &111492776
 GameObject:
@@ -806,6 +808,7 @@ MonoBehaviour:
   partOfUniquePreview: 0
   score: 0
   coeff: 1
+  riverTimer: 0
   tile: 1
 --- !u!1 &138349420
 GameObject:
@@ -1005,7 +1008,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 92, y: -148}
+  m_AnchoredPosition: {x: 122.00006, y: -129}
   m_SizeDelta: {x: 64, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &186441675
@@ -1058,13 +1061,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7115e9848171dd444ab9d449df1a222a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _x: 1
-  _y: 2
+  _x: 2
+  _y: 1
   partOfTheBoard: 0
   partOfTetrisPreview: 1
   partOfUniquePreview: 0
   score: 0
   coeff: 1
+  riverTimer: 0
   tile: 0
 --- !u!1 &205423015
 GameObject:
@@ -1101,7 +1105,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 156, y: -20}
+  m_AnchoredPosition: {x: -5.999958, y: -193.00003}
   m_SizeDelta: {x: 64, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &205423017
@@ -1154,13 +1158,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7115e9848171dd444ab9d449df1a222a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _x: 2
-  _y: 0
+  _x: 0
+  _y: 2
   partOfTheBoard: 0
   partOfTetrisPreview: 1
   partOfUniquePreview: 0
   score: 0
   coeff: 1
+  riverTimer: 0
   tile: 0
 --- !u!1 &215532407
 GameObject:
@@ -1198,7 +1203,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 111.7, y: -52}
+  m_AnchoredPosition: {x: 111.70001, y: -52}
   m_SizeDelta: {x: 255.05, y: 87.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &215532409
@@ -1409,7 +1414,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 28, y: -20}
+  m_AnchoredPosition: {x: -6, y: -65}
   m_SizeDelta: {x: 64, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &281030330
@@ -1469,6 +1474,7 @@ MonoBehaviour:
   partOfUniquePreview: 0
   score: 0
   coeff: 1
+  riverTimer: 0
   tile: 0
 --- !u!1 &348334878
 GameObject:
@@ -1585,7 +1591,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 92, y: -20}
+  m_AnchoredPosition: {x: -5.999943, y: -129}
   m_SizeDelta: {x: 64, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &349532551
@@ -1638,13 +1644,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7115e9848171dd444ab9d449df1a222a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _x: 1
-  _y: 0
+  _x: 0
+  _y: 1
   partOfTheBoard: 0
   partOfTetrisPreview: 1
   partOfUniquePreview: 0
   score: 0
   coeff: 1
+  riverTimer: 0
   tile: 0
 --- !u!1 &357662086
 GameObject:
@@ -2088,7 +2095,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 156, y: -84}
+  m_AnchoredPosition: {x: 186.00006, y: -65}
   m_SizeDelta: {x: 64, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &492420700
@@ -2141,13 +2148,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7115e9848171dd444ab9d449df1a222a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _x: 2
-  _y: 1
+  _x: 3
+  _y: 0
   partOfTheBoard: 0
   partOfTetrisPreview: 1
   partOfUniquePreview: 0
   score: 0
   coeff: 1
+  riverTimer: 0
   tile: 0
 --- !u!1 &513220254
 GameObject:
@@ -3385,7 +3393,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 28, y: -84}
+  m_AnchoredPosition: {x: 58.000057, y: -65}
   m_SizeDelta: {x: 64, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &910406071
@@ -3438,13 +3446,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7115e9848171dd444ab9d449df1a222a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _x: 0
-  _y: 1
+  _x: 1
+  _y: 0
   partOfTheBoard: 0
   partOfTetrisPreview: 1
   partOfUniquePreview: 0
   score: 0
   coeff: 1
+  riverTimer: 0
   tile: 0
 --- !u!1 &922818997
 GameObject:
@@ -3712,7 +3721,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 92, y: -84}
+  m_AnchoredPosition: {x: 122.00006, y: -65}
   m_SizeDelta: {x: 64, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &957232278
@@ -3765,13 +3774,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7115e9848171dd444ab9d449df1a222a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _x: 1
-  _y: 1
+  _x: 2
+  _y: 0
   partOfTheBoard: 0
   partOfTetrisPreview: 1
   partOfUniquePreview: 0
   score: 0
   coeff: 1
+  riverTimer: 0
   tile: 0
 --- !u!1 &974788055
 GameObject:
@@ -4441,6 +4451,7 @@ MonoBehaviour:
   partOfUniquePreview: 0
   score: 0
   coeff: 1
+  riverTimer: 0
   tile: 4
 --- !u!1 &1181832275
 GameObject:
@@ -8096,7 +8107,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 28, y: -148}
+  m_AnchoredPosition: {x: 58.000057, y: -129}
   m_SizeDelta: {x: 64, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1377499820
@@ -8149,13 +8160,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7115e9848171dd444ab9d449df1a222a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _x: 0
-  _y: 2
+  _x: 1
+  _y: 1
   partOfTheBoard: 0
   partOfTetrisPreview: 1
   partOfUniquePreview: 0
   score: 0
   coeff: 1
+  riverTimer: 0
   tile: 0
 --- !u!1 &1402149036
 GameObject:
@@ -8506,7 +8518,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 156, y: -212}
+  m_AnchoredPosition: {x: 186.00006, y: -193}
   m_SizeDelta: {x: 64, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1466422494
@@ -8559,13 +8571,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7115e9848171dd444ab9d449df1a222a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _x: 2
-  _y: 3
+  _x: 3
+  _y: 2
   partOfTheBoard: 0
   partOfTetrisPreview: 1
   partOfUniquePreview: 0
   score: 0
   coeff: 1
+  riverTimer: 0
   tile: 0
 --- !u!1 &1532125964
 GameObject:
@@ -8911,7 +8924,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 92, y: -212}
+  m_AnchoredPosition: {x: 122.00006, y: -193}
   m_SizeDelta: {x: 64, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1619095000
@@ -8964,13 +8977,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7115e9848171dd444ab9d449df1a222a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _x: 1
-  _y: 3
+  _x: 2
+  _y: 2
   partOfTheBoard: 0
   partOfTetrisPreview: 1
   partOfUniquePreview: 0
   score: 0
   coeff: 1
+  riverTimer: 0
   tile: 0
 --- !u!1 &1653369578
 GameObject:
@@ -9441,6 +9455,7 @@ MonoBehaviour:
   partOfUniquePreview: 0
   score: 0
   coeff: 1
+  riverTimer: 0
   tile: 2
 --- !u!1 &1748251248
 GameObject:
@@ -10195,6 +10210,7 @@ MonoBehaviour:
   partOfUniquePreview: 1
   score: 0
   coeff: 1
+  riverTimer: 0
   tile: 0
 --- !u!114 &1935680702
 MonoBehaviour:
@@ -10443,7 +10459,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 28, y: -212}
+  m_AnchoredPosition: {x: 58.000057, y: -193}
   m_SizeDelta: {x: 64, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1988630349
@@ -10496,13 +10512,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7115e9848171dd444ab9d449df1a222a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _x: 0
-  _y: 3
+  _x: 1
+  _y: 2
   partOfTheBoard: 0
   partOfTetrisPreview: 1
   partOfUniquePreview: 0
   score: 0
   coeff: 1
+  riverTimer: 0
   tile: 0
 --- !u!1 &2014567520
 GameObject:
