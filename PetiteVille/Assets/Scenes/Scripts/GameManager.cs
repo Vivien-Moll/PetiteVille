@@ -10,6 +10,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioSource riverSound;
     [SerializeField] private AudioSource parkSound;
 
+    [SerializeField] private Color riverFadeColor = Color.cyan;
+    [SerializeField] private float riverColorFadeTime = 1f;
+
     private int roadScore = 2;
     private int factoryBase = 10;
     private int factoryPenalty = -3;
@@ -555,7 +558,7 @@ public class GameManager : MonoBehaviour
         {
             if (tile != null)
             {
-                tile.GetComponent<Image>().color = Color.white;
+                tile.GetComponent<Image>().color = Color.Lerp(Color.white, riverFadeColor, tile.riverTimer);
                 /*switch (tile.tile)
                 {
                     case Tile.Empty:
@@ -669,8 +672,9 @@ public class GameManager : MonoBehaviour
         return newtabl;
     }
 
-    private void RiverScore()//Tuez moi
+    private List<List<Vector2Int>> ParseRivers()
     {
+
         //On part d’en haut à gauche, on check le type de la tuile
         //Si c’est de l’eau on remplace la ref board[x,y] par null
         //Si c’est pas de l’eau on ajoute la tuile à une liste puis on check toutes les tuiles adjacentes
@@ -682,7 +686,7 @@ public class GameManager : MonoBehaviour
         //On recommence le processus à partir de la première tuile qui n’est pas null en formant une nouvelle liste
         //Quand toutes les tuiles sont null on a autant de listes que de zones de map séparées par des rivières. On regarde la liste avec le count le plus petit et on double les points de toutes les tuiles de cette liste
 
-        var typebrd = new Tile[11,11];
+        var typebrd = new Tile[11, 11];
         var listRead = new List<Vector2Int>();
         var parsedLists = new List<List<Vector2Int>>();
 
@@ -693,7 +697,7 @@ public class GameManager : MonoBehaviour
             typebrd[tile.x, tile.y] = tile.tile;
         }
 
-        while(listRead.Count < 121) //Tant qu'il reste des éléments à lister
+        while (listRead.Count < 121) //Tant qu'il reste des éléments à lister
         {
             checkVector = new Vector2Int(0, 0);
 
@@ -727,14 +731,14 @@ public class GameManager : MonoBehaviour
                 var toCheck = new Queue<Vector2Int>();
 
                 toCheck.Enqueue(checkVector);
-                
+
                 parsedLists.Add(new List<Vector2Int>());
 
                 while (toCheck.Count > 0)
                 {
                     var current = toCheck.Dequeue();
 
-                    if (board[current.x,current.y].tile == Tile.River)
+                    if (board[current.x, current.y].tile == Tile.River)
                     {
                         listRead.Add(current);
                         continue;
@@ -752,8 +756,8 @@ public class GameManager : MonoBehaviour
                         adj.Add(new Vector2Int(current.x + 1, current.y));
                         if (current.y == 0)
                         {
-                            adj.Add(new Vector2Int(current.x, current.y+1));
-                            adj.Add(new Vector2Int(current.x + 1, current.y+1));
+                            adj.Add(new Vector2Int(current.x, current.y + 1));
+                            adj.Add(new Vector2Int(current.x + 1, current.y + 1));
                         }
                         else if (current.y == 10)
                         {
@@ -793,11 +797,11 @@ public class GameManager : MonoBehaviour
                     {
                         if (current.y == 0)
                         {
-                            adj.Add(new Vector2Int(current.x-1, current.y));
+                            adj.Add(new Vector2Int(current.x - 1, current.y));
                             adj.Add(new Vector2Int(current.x + 1, current.y));
-                            adj.Add(new Vector2Int(current.x-1, current.y + 1));
+                            adj.Add(new Vector2Int(current.x - 1, current.y + 1));
                             adj.Add(new Vector2Int(current.x, current.y + 1));
-                            adj.Add(new Vector2Int(current.x+1, current.y + 1));
+                            adj.Add(new Vector2Int(current.x + 1, current.y + 1));
 
                         }
                         else if (current.y == 10)
@@ -821,7 +825,7 @@ public class GameManager : MonoBehaviour
                         }
                     }
 
-                    foreach(Vector2Int vec in adj)
+                    foreach (Vector2Int vec in adj)
                     {
                         if ((!toCheck.Contains(vec)) && (!listRead.Contains(vec)))
                         {
@@ -832,10 +836,45 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (parsedLists.Count == 1) //La rivière n'est pas connectée
+        return parsedLists;
+    }
+
+    public void DisplayRiverParsing()
+    {
+        List<List<Vector2Int>> parsedLists = ParseRivers();
+
+        if (parsedLists.Count == 1)
         {
             return;
         }
+
+        var mincount = 999;
+        var minlist = new List<Vector2Int>();
+
+        foreach (List<Vector2Int> l in parsedLists)
+        {
+            if (l.Count < mincount)
+            {
+                mincount = l.Count;
+            }
+        }
+
+        foreach (List<Vector2Int> ll in parsedLists)
+        {
+            if (ll.Count == mincount)
+            {
+                foreach (Vector2Int cell in ll)
+                {
+                    //board[cell.x, cell.y].gameObject.GetComponent<Image>().color = Color.cyan;
+                    board[cell.x, cell.y].riverTimer = riverColorFadeTime;
+                }
+            }
+        }
+    }
+
+    private void RiverScore()
+    {
+        List<List<Vector2Int>>  parsedLists = ParseRivers();
 
         //Et là on trouve la plus petite liste sapristi
 
@@ -847,13 +886,18 @@ public class GameManager : MonoBehaviour
             if (l.Count < mincount)
             {
                 mincount = l.Count;
-                minlist = l;
             }
         }
 
-        foreach(Vector2Int cell in minlist)
+        foreach (List<Vector2Int> ll in parsedLists)
         {
-            board[cell.x, cell.y].coeff = 2;
+            if (ll.Count == mincount)
+            {
+                foreach (Vector2Int cell in ll)
+                {
+                    board[cell.x, cell.y].coeff = 2;
+                }
+            }
         }
     }
 
