@@ -82,7 +82,6 @@ public class DetectMousePosition : MonoBehaviour
                 checkTileType(res);
                 if (res.isPartOfBoard())
                 {
-
                     if (checkmodeTetris)
                     {
                         CheckTileTetris(res, GameManager.Instance.pattern);
@@ -201,6 +200,7 @@ public class DetectMousePosition : MonoBehaviour
                 break;
             case Tile.River:
                 description.text = "If a river divides the map, the points of the smallest part are doubled.\nRivers don't like to be near Factories.";
+                GameManager.Instance.DisplayRiverParsing();
                 break;
             case Tile.Park:
                 description.text = "+2 points for each park tile in your biggest park. +2 points for each river surrounding a park.\nParks don't like to be near Factories.";

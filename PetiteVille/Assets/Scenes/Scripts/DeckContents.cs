@@ -160,7 +160,9 @@ public class DeckContents : MonoBehaviour
     }
 
     public void RefreshTetris(bool[,] pat)
-    {
+    {//Changer orientation du tableau et type d'input. Récup un Tetris puis faire un switch avec des coordonnées manuelles
+        //Transposer le tableau
+        //Changer les appels de la fonction dans gamemanager
         for (var x = 1; x < 4; x++)
         {
             for(var y = 0; y < 4; y++)

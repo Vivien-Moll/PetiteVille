@@ -23,6 +23,8 @@ public class TileObject : MonoBehaviour
     public int coeff = 1;
 
     public float randomFlower { get; private set; } = 0f;
+    [HideInInspector]
+    public float riverTimer = 0f;
 
     //[HideInInspector]
     public Tile tile = Tile.Empty;
@@ -71,5 +73,11 @@ public class TileObject : MonoBehaviour
     public int GetRawScore()
     {
         return score;
+    }
+
+    private void Update()
+    {
+        riverTimer -= Time.deltaTime;
+        riverTimer = Mathf.Clamp(riverTimer, 0f, 1f);
     }
 }
